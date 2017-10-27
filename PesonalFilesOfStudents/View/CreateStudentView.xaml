@@ -7,28 +7,24 @@
         mc:Ignorable="d"
         Title="Creating student" Height="470" Width="333.21" ResizeMode="NoResize">
     <Grid>
-        <TextBlock Text="Фамилия : " Margin="28,13,205,385" />
+        <TextBlock Text="Фамилия : " Margin="28,23,239,395" Width="60" />
         <TextBox Text="{Binding LastName}" HorizontalAlignment="Right" Margin="0,13,42,392" Width="100" Height="16" />
-        <TextBlock Text="Имя :" Margin="28,41,259,358"  Width="30"/>
+        <TextBlock Text="Имя :" Margin="28,51,269,368"  Width="30"/>
         <TextBox Text="{Binding FirstName}"  HorizontalAlignment="Right" Width="100" Height="16" Margin="0,41,42,364"/>
         <TextBox Text="{Binding MiddleName}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,68,42,337"/>
         <TextBox Text="{Binding DateOfBirth}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,95,42,310"/>
         <TextBox Text="{Binding Registration}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,125,42,280"/>
-        <TextBlock Text="Отчество :" Margin="28,68,205,331" />
-        <TextBlock Text="Номер группы : " Margin="28,214,176,179" />
-        <TextBlock Text="Номер факультета :" Margin="28,247,156,149" />
+        <TextBlock Text="Отчество :" Margin="28,78,205,337"/>
+        <TextBlock Text="Номер группы : " Margin="28,224,176,188"/>
+        <TextBlock Text="Номер факультета :" Margin="28,258,156,156" />
         <TextBox Text="{Binding Gender}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,154,42,251" MaxLength="10"/>
         <TextBox Text="{Binding Course}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,185,42,220"/>
         <TextBox Text="{Binding Group}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,214,42,191"/>
-        <TextBlock Text="Курс :" Margin="28,185,156,212" />
-        <TextBlock Text="День рождения :" Margin="28,95,156,301" />
-        <TextBlock Text="Место проживания :" Margin="28,125,147,272" />
-        <TextBlock Text="Пол :" Margin="28,154,156,241" />
+        <TextBlock Text="Курс :" Margin="28,195,156,222"/>
+        <TextBlock Text="День рождения :" Margin="28,104,156,311"/>
+        <TextBlock Text="Место проживания :" Margin="28,135,147,282"/>
+        <TextBlock Text="Пол :" Margin="28,164,156,251" />
         <TextBox Text="{Binding Faculty}" HorizontalAlignment="Right" Width="100" Height="16" Margin="0,247,42,158"/>
-        <TextBox Text="{Binding RecordBookID}" HorizontalAlignment="Right" Width="100" Margin="0,277,42,127" Height="16"/>
-        <TextBox Text="{Binding ReadingBookID}" HorizontalAlignment="Right" Width="100" Margin="0,308,42,98" Height="16"/>
-        <TextBlock Text="Номер зачетки :" Margin="28,277,156,118" />
-        <TextBlock Text="Номер читательского :" Margin="28,308,156,88" />
-        <Button Content="Создать" Width="100" Margin="106,348,111,39" HorizontalAlignment="Center" Command="{Binding AddStudentToDBCommand}" Click="Button_Click"/>
+        <Button Content="Создать" Width="123" Margin="102,312,102,75" HorizontalAlignment="Center" Command="{Binding AddStudentToDBCommand}" Click="Button_Click"/>
     </Grid>
 </Window>

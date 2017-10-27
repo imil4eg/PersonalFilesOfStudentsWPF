@@ -23,8 +23,11 @@ namespace PesonalFilesOfStudents.ViewModel
 
         public void AddStudentToDB()
         {
+            int id = Model.StudentModel.Students.OrderByDescending(p => p.StudentID).FirstOrDefault().StudentID + 1;
+
             Model.StudentModel.CreateStudent(new Student
             {
+                StudentID = id,
                 FirstName = this.FirstName,
                 LastName = this.LastName,
                 Birth_Date = this.BirthDate,
@@ -34,8 +37,8 @@ namespace PesonalFilesOfStudents.ViewModel
                 Gender = this.Gender,
                 Group = this.Group,
                 MiddleName = this.MiddleName,
-                ReadingBookID = this.ReadingBookID,
-                RecordBookID = this.RecordBookID
+                ReadingBookID = id,
+                RecordBookID = id
             });
         }
 
@@ -168,6 +171,34 @@ namespace PesonalFilesOfStudents.ViewModel
         // Using a DependencyProperty as the backing store for ReadingBookID.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ReadingBookIDProperty =
             DependencyProperty.Register("ReadingBookID", typeof(int), typeof(CreateStudentViewModel), new PropertyMetadata(null));
+
+        public class CommandHandler : ICommand
+        {
+            private Action<object> execute;
+            private Func<object, bool> canExecute;
+
+            public event EventHandler CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
+
+            public CommandHandler(Action<object> execute, Func<object, bool> canExecute = null)
+            {
+                this.execute = execute;
+                this.canExecute = canExecute;
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return this.canExecute == null || this.canExecute(parameter);
+            }
+
+            public void Execute(object parameter)
+            {
+                this.execute(parameter);
+            }
+        }
 
     }
 }

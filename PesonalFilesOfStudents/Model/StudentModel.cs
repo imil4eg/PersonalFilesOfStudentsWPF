@@ -30,13 +30,22 @@ namespace PesonalFilesOfStudents.Model
 
         public static bool CreateStudent(Student instance)
         {
-            if (instance.StudentID == 0)
+            Db.RecordBooks.Add(new RecordBook()
             {
-                Db.Students.Add(instance);
-                Db.SaveChanges();
-                return true;
-            }
-            return false;
+                Id = Db.RecordBooks.OrderByDescending(p => p.Id).First().Id + 1,
+                StudentID = instance.StudentID
+            });
+
+            Db.ReadingBooks.Add(new ReadingBook()
+            {
+                id = Db.ReadingBooks.OrderByDescending(p => p.id).First().id + 1,
+                StudentID = instance.StudentID
+            });
+            Db.SaveChanges();
+
+            Db.Students.Add(instance);
+            Db.SaveChanges();
+            return true;
         }
 
         //public bool UpdateStudent(Student instance)
