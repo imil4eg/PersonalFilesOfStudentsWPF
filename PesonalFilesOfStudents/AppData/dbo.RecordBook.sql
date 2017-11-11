@@ -5,7 +5,6 @@
     [Mark]          INT            NULL,
     [Teacher]       NVARCHAR (150) NULL,
     [StudentID]     INT            NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_RecordBook_ToStudents] FOREIGN KEY ([StudentID]) REFERENCES [dbo].[Students] ([StudentID])
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

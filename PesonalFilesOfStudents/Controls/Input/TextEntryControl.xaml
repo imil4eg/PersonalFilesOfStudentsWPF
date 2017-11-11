@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="PesonalFilesOfStudents.TextEntryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PesonalFilesOfStudents"
+             xmlns:core="clr-namespace:PesonalFilesOfStudents.Core;assembly=PesonalFilesOfStudents.Core"
+             mc:Ignorable="d" 
+             DataContext="{x:Static core:TextEntryDesignModel.Instance}">
+    
+    <!-- Grey underline-->
+    <Border BorderBrush="{StaticResource ForegroundVeryDarkBrush}"
+            BorderThickness="0 0 0 0.4">
+
+        <Grid Background="{StaticResource ForegroundLightBrush}">
+
+            <!-- Label -> Name* -> Buttons -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Label -->
+            <TextBlock Text="{Binding Label}" 
+                       Margin="15 12"
+                       VerticalAlignment="Center"
+                       FontFamily="{StaticResource LatoRegular}"
+                       />
+            
+            <!-- Edit Content --><!--
+            <TextBox Text="{Binding OriginalText}"
+                     Grid.Column="1"
+                     FontSize="{StaticResource FontSizeRegular}"
+                     Padding="2"
+                     local:AnimateFadeInProperty.Value="{Binding Editing}"
+                     Margin="10 10 15 8"
+                     />
+
+            --><!-- Content --><!--
+            <TextBlock Text="{Binding OriginalText}" 
+                       Grid.Column="1"
+                       local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
+                       Margin="15 8"
+                       VerticalAlignment="Center"
+                       />-->
+
+            <!-- Buttons container -->
+            <Grid Grid.Column="2">
+                
+                <!-- Edit button -->
+                <Button Content="..." 
+                        Padding="8 5"
+                        Margin="0"
+                        Cursor="Hand"
+                        Command="{Binding EditCommand}"
+                        Background="{StaticResource ForegroundVeryDarkBrush}"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        VerticalAlignment="Center"
+                        />
+
+            </Grid>
+
+        </Grid>
+        
+    </Border>
+</UserControl>

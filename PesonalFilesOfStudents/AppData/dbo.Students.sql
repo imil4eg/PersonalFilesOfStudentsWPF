@@ -11,8 +11,6 @@
     [Gender]        NVARCHAR (10)  NOT NULL,
     [RecordBookID]  INT            NOT NULL,
     [ReadingBookID] INT            NOT NULL,
-    PRIMARY KEY CLUSTERED ([StudentID] ASC),
-    CONSTRAINT [Students_ToReadingBook] FOREIGN KEY ([ReadingBookID]) REFERENCES [dbo].[ReadingBook] ([id]),
-    CONSTRAINT [FK_Students_ToRecordBook] FOREIGN KEY ([RecordBookID]) REFERENCES [dbo].[RecordBook] ([Id])
+    PRIMARY KEY CLUSTERED ([StudentID] ASC)
 );
 

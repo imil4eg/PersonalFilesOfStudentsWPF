@@ -1,5 +1,4 @@
-﻿using PesonalFilesOfStudents.View;
-using PesonalFilesOfStudents.ViewModel;
+﻿using PesonalFilesOfStudents.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,18 +24,9 @@ namespace PesonalFilesOfStudents
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-        }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            DataContext = new StudentsViewModel();
-        }
+            DataContext = new MainWindowViewModel(this);
 
-        private void addStudentButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateStudentView view = new CreateStudentView();
-            view.Show();
         }
     }
 }
