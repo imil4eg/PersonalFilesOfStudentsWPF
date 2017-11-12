@@ -1,19 +1,17 @@
-﻿using PesonalFilesOfStudents.Core;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows;
 
 namespace PesonalFilesOfStudents
 {
     /// <summary>
-    /// A converter that takes in a <see cref="IconType"/> and returns 
-    /// the FontAwesome string for that icon
+    /// A converter that takes in the core horizontal aligment enum and converts it to WPF aligment
     /// </summary>
-    public class IconTypeToFontAwesomeConverter : BaseValueConverter<IconTypeToFontAwesomeConverter>
+    public class HorizontalAligmentConverter : BaseValueConverter<HorizontalAligmentConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((IconType)value).ToFontAwesome();
+            return (HorizontalAlignment) value;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

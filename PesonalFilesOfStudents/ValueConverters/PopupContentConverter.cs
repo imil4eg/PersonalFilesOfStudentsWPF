@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
-using Fasetto.Word.Core;
+using PesonalFilesOfStudents.Core;
 
-namespace Fasetto.Word
+namespace PesonalFilesOfStudents
 {
     /// <summary>
     /// A converter that takes in a <see cref="BaseViewModel"/>and returns the specific UI control 
@@ -13,8 +13,11 @@ namespace Fasetto.Word
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ChatAttachmentPopupMenuViewModel basePopup)
-                return new VerticalMenu { DataContext = basePopup.Content };
+            if (value is StudentInformationAttachmentPopupMenuViewModel)
+            {
+                var basePopup = (StudentInformationAttachmentPopupMenuViewModel) value;
+                return new VerticalMenu {DataContext = basePopup.Content};
+            }
 
             return null;
         }

@@ -118,6 +118,9 @@
     <Compile Include="Controls\Input\TextEntryControl.xaml.cs">
       <DependentUpon>TextEntryControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Menu\VerticalMenu.xaml.cs">
+      <DependentUpon>VerticalMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
@@ -145,9 +148,13 @@
     </Compile>
     <Compile Include="TextConverter\TextVerticalConverter.cs" />
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
+    <Compile Include="ValueConverters\IconTypeToFontAwesomeConverter.cs" />
+    <Compile Include="ValueConverters\MenuItemTypeToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\HorizontalAligmentConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\PopupContentConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisiblityConverter.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -162,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Input\TextEntryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Menu\VerticalMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
