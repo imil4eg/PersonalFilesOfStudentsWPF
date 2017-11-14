@@ -21,9 +21,11 @@
         /// </summary>
         public StudentListItemDesignModel()
         {
-            Initials = "LM";
-            Name = "Luke";
-            Message = "This app is awesome! I bet it will be fast too";
+            //TODO : Remake this path, then add the DB
+
+            ProfilePicture = "LM";
+            FirstName = "Luke";
+            LastName = "This app is awesome! I bet it will be fast too";
             ProfilePictureRGB = "3099c5";
         }
 

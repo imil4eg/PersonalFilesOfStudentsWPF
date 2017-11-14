@@ -41,7 +41,7 @@
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                             CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                         <!-- Profile photo initials -->
-                                        <TextBlock Text="{Binding Initials}"
+                                        <TextBlock Text="{Binding ProfilePicture}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    Foreground="{StaticResource ForegroundLightBrush}"
@@ -56,7 +56,7 @@
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
 
                                         <!-- Name -->
-                                        <TextBlock Text="{Binding Name}" 
+                                        <TextBlock Text="{Binding FirstName}" 
                                                    Padding="0 0 0 2"
                                                    Foreground="{StaticResource WordBlueBrush}"
                                                    TextTrimming="CharacterEllipsis"
@@ -64,7 +64,7 @@
                                                         />
 
                                         <!-- Message -->
-                                        <TextBlock Text="{Binding Message}"
+                                        <TextBlock Text="{Binding LastName}"
                                                    Padding="0 2 0 0"
                                                    Foreground="{StaticResource ForegroundVeryDarkBrush}"
                                                    TextTrimming="CharacterEllipsis"

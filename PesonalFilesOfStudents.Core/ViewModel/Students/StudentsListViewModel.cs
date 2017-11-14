@@ -39,8 +39,8 @@ namespace PesonalFilesOfStudents.Core
             {
                 studs.Add(new StudentsListItemViewModel
                 {
-                    Name = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
-                    Message = stud.Group.ToString()
+                    FirstName = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
+                    Group = stud.Group
                 });
             }
 

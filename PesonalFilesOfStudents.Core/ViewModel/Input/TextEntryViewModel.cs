@@ -75,6 +75,10 @@ namespace PesonalFilesOfStudents.Core
         /// </summary>
         public void Edit()
         {
+            // Set the edited text to the current value
+            EditedText = OriginalText;
+
+            // Go into edit mode
             Editing = true;
         }
 
@@ -92,6 +96,7 @@ namespace PesonalFilesOfStudents.Core
         public void Save()
         {
             // TODO : Save content
+            OriginalText = EditedText;
 
             Editing = false;
         }

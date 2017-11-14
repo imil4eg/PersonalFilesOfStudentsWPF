@@ -33,9 +33,12 @@
     <system:Double x:Key="FontSizeXXLarge">30</system:Double>
 
     <system:String x:Key="FontAweasomeEllipsisVerticalIcon">&#xf142;</system:String>
+    <system:String x:Key="FontAweasomeEllipsisIcon">&#xf141;</system:String>
     <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf060;</system:String>
     <system:String x:Key="FontAwesomeAddUserIcon">&#xf234;</system:String>
     <system:String x:Key="FontAwesomeEditIcon">&#xf044;</system:String>
     <system:String x:Key="FontAwesomeDeleteIcon">&#xf014;</system:String>
+    <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeCloseIcon">&#xf00d;</system:String>
 
 </ResourceDictionary>

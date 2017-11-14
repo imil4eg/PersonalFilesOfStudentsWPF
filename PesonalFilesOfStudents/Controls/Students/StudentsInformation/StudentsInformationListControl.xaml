@@ -5,22 +5,89 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PesonalFilesOfStudents"
              xmlns:core="clr-namespace:PesonalFilesOfStudents.Core;assembly=PesonalFilesOfStudents.Core"
+             DataContext="{x:Static core:StudentInformationDesignModel.Instance}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <Grid Background="{StaticResource ForegroundLightBrush}">
         <Grid.RowDefinitions>
-            
+
             <!-- Photo -->
             <RowDefinition Height="Auto" />
-            
+
             <!-- Information -->
             <RowDefinition Height="*" />
-            
+
         </Grid.RowDefinitions>
 
+        <!-- Photo -->
         <Image DataContext="{Binding ImageAttachment}"
                Source="{Binding LocalFilePath}"
                />
+
+        <!-- Information -->
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
+
+                <local:TextEntryControl DataContext="{Binding FirstName}"/>
+                <local:TextEntryControl DataContext="{Binding LastName}" Grid.Row="1"/>
+                <local:TextEntryControl DataContext="{Binding Registration}"
+                                        Grid.Row="2"
+                />
+                <local:TextEntryControl DataContext="{Binding Group}"
+                                        Grid.Row="3"
+                />
+                <local:TextEntryControl DataContext="{Binding Gender}"
+                                        Grid.Row="4"
+                />
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" local:TextEntryWidthMatcherProperty.Value="True">
+                <local:TextEntryControl DataContext="{Binding MiddleName}"
+                                        Grid.Column="1"
+                                        Margin="15 0 0 0"
+                />
+                <local:TextEntryControl DataContext="{Binding BirthDate}" 
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="15 0 0 0"
+                />
+                <local:TextEntryControl DataContext="{Binding Course}"
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Margin="15 0 0 0"
+                />
+                <local:TextEntryControl DataContext="{Binding Faculty}"
+                                        Grid.Row="3" 
+                                        Grid.Column="3"
+                                        Margin="15 0 0 0"
+                />
+                <local:TextEntryControl DataContext="{Binding ImageAttachment}"
+                                        Grid.Row="4"
+                                        Grid.Column="4"
+                                        Margin="15 0 0 0"
+                />
+
+            </StackPanel>
+
+
+        </Grid>
     </Grid>
 </UserControl>
+
+
+

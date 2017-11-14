@@ -6,60 +6,133 @@
              xmlns:local="clr-namespace:PesonalFilesOfStudents"
              xmlns:core="clr-namespace:PesonalFilesOfStudents.Core;assembly=PesonalFilesOfStudents.Core"
              mc:Ignorable="d" 
-             DataContext="{x:Static core:TextEntryDesignModel.Instance}">
+             d:DataContext="{x:Static core:TextEntryDesignModel.Instance}">
     
     <!-- Grey underline-->
     <Border BorderBrush="{StaticResource ForegroundVeryDarkBrush}"
-            BorderThickness="0 0 0 0.4">
+            BorderThickness="0 0 0 0.5">
 
         <Grid Background="{StaticResource ForegroundLightBrush}">
-
+            
+            <!-- Double click to edit -->
+            <Grid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditCommand}"/>
+            </Grid.InputBindings>
+            
+            <!-- Hover over to show edit button --> 
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation To="1"
+                                             Duration="0:0:0.4"
+                                             Storyboard.TargetName="EditButton"
+                                             Storyboard.TargetProperty="Opacity"
+                                             />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation To="0"
+                                             Duration="0:0:0.4"
+                                             Storyboard.TargetName="EditButton"
+                                             Storyboard.TargetProperty="Opacity"
+                                             /> 
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+            
             <!-- Label -> Name* -> Buttons -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Name="LabelColumnDefinition" Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!-- Label -->
             <TextBlock Text="{Binding Label}" 
+                       Name="Label"
                        Margin="15 12"
+                       HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        FontFamily="{StaticResource LatoRegular}"
                        />
             
-            <!-- Edit Content --><!--
-            <TextBox Text="{Binding OriginalText}"
+             <!--Edit Content--> 
+            <TextBox Text="{Binding EditedText, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="1"
+                     Opacity="0"
                      FontSize="{StaticResource FontSizeRegular}"
-                     Padding="2"
                      local:AnimateFadeInProperty.Value="{Binding Editing}"
+                     local:FocusAndSelectProperty.Value="{Binding Editing}"
+                     Padding="2"
                      Margin="10 10 15 8"
                      />
 
-            --><!-- Content --><!--
+             <!--Content--> 
             <TextBlock Text="{Binding OriginalText}" 
                        Grid.Column="1"
                        local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
                        Margin="15 8"
                        VerticalAlignment="Center"
-                       />-->
+                       />
 
-            <!-- Buttons container -->
-            <Grid Grid.Column="2">
+            <!-- Edit button container -->
+            <Grid Grid.Column="2"
+                  local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
+                >
                 
                 <!-- Edit button -->
-                <Button Content="..." 
+                <Button Content="{StaticResource FontAweasomeEllipsisIcon}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        x:Name="EditButton"
+                        Opacity="0"
                         Padding="8 5"
                         Margin="0"
                         Cursor="Hand"
                         Command="{Binding EditCommand}"
-                        Background="{StaticResource ForegroundVeryDarkBrush}"
+                        Background="{StaticResource ForegroundMainBrush}"
                         FontSize="{StaticResource FontSizeSmall}"
                         VerticalAlignment="Center"
                         />
 
             </Grid>
+            
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        >
+                
+                <!-- Save Button -->
+                <Button  Content="{StaticResource FontAwesomeTickIcon}"
+                         FontFamily="{StaticResource FontAwesome}"
+                         local:AnimateFadeInProperty.Value="{Binding Editing}"
+                         IsDefault="True"
+                         Cursor="Hand"
+                         Command="{Binding SaveCommand}"
+                         Padding="8 5"
+                         Margin="0 0 5 0"
+                         VerticalAlignment="Center"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         />
+
+                <!-- Cancel Button -->
+                <Button  Content="{StaticResource FontAwesomeCloseIcon}"
+                         FontFamily="{StaticResource FontAwesome}"
+                         local:AnimateFadeInProperty.Value="{Binding Editing}"
+                         IsCancel="True"
+                         Cursor="Hand"
+                         Command="{Binding CancelCommand}"
+                         Background="{StaticResource WordOrangeBrush}"
+                         Padding="8 5"
+                         Margin="0"
+                         VerticalAlignment="Center"
+                         FontSize="{StaticResource FontSizeSmall}"
+                />
+
+            </StackPanel>
 
         </Grid>
         

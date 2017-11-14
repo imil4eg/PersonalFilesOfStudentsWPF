@@ -38,71 +38,36 @@ namespace PesonalFilesOfStudents.Core
         {
             Items = new List<StudentsListItemViewModel>() // CreateStudentsListViewModel();
             {
-
+                // TODO : Remake this path fully
 
                 new StudentsListItemViewModel
                 {
-                    Name="Luke",
-                    Initials = "LM",
-                    Message = "this chat app is awesome! I bet it will be fast too",
+                    FirstName= "Luke",
+                    ProfilePicture = "LM",
+                    LastName = "this chat app is awesome! I bet it will be fast too",
                     ProfilePictureRGB = "3099c5"
                 },
                 new StudentsListItemViewModel
                 {
-                    Name="Jesse",
-                    Initials = "JA",
-                    Message = "Hey dude, here are new icons",
+                    FirstName= "Jesse",
+                    ProfilePicture = "JA",
+                    LastName = "Hey dude, here are new icons",
                     ProfilePictureRGB = "fe4503",
                     IsSelected = true
                 },
                 new StudentsListItemViewModel
                 {
-                    Name="Parnell",
-                    Initials = "PL",
-                    Message = "The new server is up, got 192.168.1.1",
+                    FirstName= "Parnell",
+                    ProfilePicture = "PL",
+                    LastName = "The new server is up, got 192.168.1.1",
                     ProfilePictureRGB = "00d405"
                 },
                 new StudentsListItemViewModel
                 {
-                    Name="Luke",
-                    Initials = "LM",
-                    Message = "this chat app is awesome! I bet it will be fast too",
+                    FirstName= "Luke",
+                    ProfilePicture = "LM",
+                    LastName = "this chat app is awesome! I bet it will be fast too",
                     ProfilePictureRGB = "3099c5"
-                },
-                new StudentsListItemViewModel
-                {
-                    Name="Jesse",
-                    Initials = "JA",
-                    Message = "Hey dude, here are new icons",
-                    ProfilePictureRGB = "fe4503"
-                },
-                new StudentsListItemViewModel
-                {
-                    Name="Parnell",
-                    Initials = "PL",
-                    Message = "The new server is up, got 192.168.1.1",
-                    ProfilePictureRGB = "00d405"
-                },
-                new StudentsListItemViewModel
-                {
-                    Name="Luke",
-                    Initials = "LM",
-                    Message = "this chat app is awesome! I bet it will be fast too",
-                    ProfilePictureRGB = "3099c5"
-                },
-                new StudentsListItemViewModel
-                {
-                    Name="Jesse",
-                    Initials = "JA",
-                    Message = "Hey dude, here are new icons",
-                    ProfilePictureRGB = "fe4503",
-                },
-                new StudentsListItemViewModel
-                {
-                    Name="Parnell",
-                    Initials = "PL",
-                    Message = "The new server is up, got 192.168.1.1",
-                    ProfilePictureRGB = "00d405"
                 }
             };
         }
@@ -117,9 +82,9 @@ namespace PesonalFilesOfStudents.Core
             {
                 studs.Add(new StudentsListItemViewModel
                 {
-                    Name = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
-                    Message = "Group " + stud.Group.ToString(),
-                    Initials = stud.LastName[0].ToString() + stud.FirstName[0].ToString(),
+                    FirstName = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
+                    LastName = "Group " + stud.Group.ToString(),
+                    ProfilePicture = stud.LastName[0].ToString() + stud.FirstName[0].ToString(),
                     ProfilePictureRGB = Colors[rnd.Next(2)]
 
                 });

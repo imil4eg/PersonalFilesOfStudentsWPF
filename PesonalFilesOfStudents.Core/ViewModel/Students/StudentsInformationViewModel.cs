@@ -15,57 +15,57 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// Students ID
         /// </summary>
-        public int ID { get; set; }
+        public TextEntryViewModel ID { get; set; }
 
         /// <summary>
         /// Students first name
         /// </summary>
-        public string FirstName { get; set; }
+        public TextEntryViewModel FirstName { get; set; }
 
         /// <summary>
         /// Students last name
         /// </summary>
-        public string LastName { get; set; }
+        public TextEntryViewModel LastName { get; set; }
 
         /// <summary>
         /// Students middle name
         /// </summary>
-        public string MiddleName { get; set; }
+        public TextEntryViewModel MiddleName { get; set; }
 
         /// <summary>
         /// Students birth date
         /// </summary>
-        public DateTime BirthDate { get; set; }
+        public TextEntryViewModel BirthDate { get; set; }
 
         /// <summary>
         /// Students living place
         /// </summary>
-        public string Registration { get; set; }
+        public TextEntryViewModel Registration { get; set; }
 
         /// <summary>
         /// Students study course
         /// </summary>
-        public int Course { get; set; }
+        public TextEntryViewModel Course { get; set; }
 
         /// <summary>
         /// Students group
         /// </summary>
-        public int Group { get; set; }
+        public TextEntryViewModel Group { get; set; }
 
         /// <summary>
         /// Students faculty
         /// </summary>
-        public int Faculty { get; set; }
+        public TextEntryViewModel Faculty { get; set; }
 
         /// <summary>
         /// Students gender
         /// </summary>
-        public string Gender { get; set; }
+        public TextEntryViewModel Gender { get; set; }
 
         /// <summary>
         /// The attachment to the image
         /// </summary>
-        public StudentsInformationImageViewModel ImageAttachment { get; set; }
+        public TextEntryViewModel ImageAttachment { get; set; }
 
         /// <summary>
         /// True to show the attachment menu, false to hide it
@@ -111,6 +111,17 @@ namespace PesonalFilesOfStudents.Core
 
             // Make a default menu
             AttachmentMenu = new StudentInformationAttachmentPopupMenuViewModel();
+
+            FirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = "Vasya" };
+            MiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = "Vasilievich" };
+            LastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = "Pupkin" };
+            BirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = "14-08-1988" };
+            Registration = new TextEntryDesignModel { Label = "Registration", OriginalText = "Azino" };
+            Course = new TextEntryDesignModel { Label = "Course", OriginalText = "4" };
+            Group = new TextEntryDesignModel { Label = "Group", OriginalText = "4132" };
+            Faculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = "1" };
+            Gender = new TextEntryDesignModel { Label = "Gender", OriginalText = "Male" };
+            ImageAttachment = new TextEntryDesignModel { Label = "Profile photo", OriginalText = "lico.png" };
         }
 
         #endregion

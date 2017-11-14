@@ -90,6 +90,18 @@ namespace PesonalFilesOfStudents.Core
             // Create commands
             CloseCommand = new RelayCommand(Close);
             OpenCommand = new RelayCommand(Open);
+
+
+            FirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = "XD" };
+            MiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = "XD" };
+            LastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = "XD" };
+            BirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = "XD" };
+            Registration = new TextEntryDesignModel { Label = "Registration", OriginalText = "XD" };
+            Course = new TextEntryDesignModel { Label = "Course", OriginalText = "XD" };
+            Group = new TextEntryDesignModel { Label = "Group", OriginalText = "XD" };
+            Faculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = "XD" };
+            Gender = new TextEntryDesignModel { Label = "Gender", OriginalText = "XD" };
+            ProfilePhoto = new TextEntryDesignModel { Label = "Profile photo", OriginalText = "XD" };
         }
 
         #endregion

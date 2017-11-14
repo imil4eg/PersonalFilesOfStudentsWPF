@@ -45,6 +45,7 @@
                                 Grid.Column="1" 
                                 Padding="8"
                                 Content="{StaticResource FontAwesomeAddUserIcon}"
+                                FontFamily="{StaticResource FontAwesome}"
                                 Command="{Binding AddStudentViewModel.OpenCommand,
                                           Source={x:Static local:ViewModelLocator.Instance}}"
                                 FontSize="{StaticResource FontSizeXLarge}"

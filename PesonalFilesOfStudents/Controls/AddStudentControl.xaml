@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PesonalFilesOfStudents"
+             xmlns:core="clr-namespace:PesonalFilesOfStudents.Core;assembly=PesonalFilesOfStudents.Core"
              mc:Ignorable="d" 
+             DataContext="{x:Static core:AddStudentDesignModel.Instance}"
              d:DesignHeight="500" d:DesignWidth="300">
     
     <!-- Main background -->
@@ -83,18 +85,18 @@
                 </Grid.RowDefinitions>
             
                 <!-- Profile Details -->
-                <StackPanel>
+                <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
 
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
-                    <local:TextEntryControl />
+                    <local:TextEntryControl DataContext="{Binding FirstName}"/>
+                    <local:TextEntryControl DataContext="{Binding MiddleName}"/>
+                    <local:TextEntryControl DataContext="{Binding LastName}"/>
+                    <local:TextEntryControl DataContext="{Binding BirthDate}"/>
+                    <local:TextEntryControl DataContext="{Binding Registration}"/>
+                    <local:TextEntryControl DataContext="{Binding Course}"/>
+                    <local:TextEntryControl DataContext="{Binding Group}"/>
+                    <local:TextEntryControl DataContext="{Binding Faculty}"/>
+                    <local:TextEntryControl DataContext="{Binding Gender}"/>
+                    <local:TextEntryControl DataContext="{Binding ProfilePhoto}"/>
 
                 </StackPanel>
                 
