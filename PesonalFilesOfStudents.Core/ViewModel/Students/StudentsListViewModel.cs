@@ -25,26 +25,9 @@ namespace PesonalFilesOfStudents.Core
         public StudentsListViewModel()
         {
 
-            Items = CreateStudentsListViewModel();
+            
         }
 
         #endregion
-
-
-        private List<StudentsListItemViewModel> CreateStudentsListViewModel()
-        {
-            List<StudentsListItemViewModel> studs = new List<StudentsListItemViewModel>();
-
-            foreach (var stud in SqlDbConnect.TakeStudents())
-            {
-                studs.Add(new StudentsListItemViewModel
-                {
-                    FirstName = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
-                    Group = stud.Group
-                });
-            }
-
-            return studs;
-        }
     }
 }

@@ -29,7 +29,7 @@ namespace PesonalFilesOfStudents.Core
                 // Update value
                 mThumbnaiUrl = value;
 
-                LocalFilePath = "/Images/index.png";
+                LocalFilePath = "pack://application:,,,/Images/index.png";
             }
         }
 

@@ -20,7 +20,15 @@ namespace PesonalFilesOfStudents
         {
             InitializeComponent();
         }
-        
+
+        /// <summary>
+        /// Constructor with specific view model
+        /// </summary>
+        public LoginPage(LoginViewModel specificViewModel) : base(specificViewModel)
+        {
+            InitializeComponent();
+        }
+
 
         #endregion
         /// <summary>

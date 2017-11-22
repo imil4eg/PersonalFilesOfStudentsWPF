@@ -19,14 +19,6 @@ namespace PesonalFilesOfStudents.Core
 
         #region Helpers
 
-        private Random rnd = new Random();
-
-        #endregion
-
-        #region Massive
-
-        private readonly string[] Colors = { "3099c5", "fe4503", "00d405" };
-        
         #endregion
 
         #region Contructor
@@ -36,40 +28,40 @@ namespace PesonalFilesOfStudents.Core
         /// </summary>
         public StudentListDesignModel()
         {
-            Items = new List<StudentsListItemViewModel>() // CreateStudentsListViewModel();
-            {
-                // TODO : Remake this path fully
+            Items = CreateStudentsListViewModel(); //new List<StudentsListItemViewModel>() // CreateStudentsListViewModel();
+            //{
+            //    // TODO : Remake this path fully
 
-                new StudentsListItemViewModel
-                {
-                    FirstName= "Luke",
-                    ProfilePicture = "LM",
-                    LastName = "this chat app is awesome! I bet it will be fast too",
-                    ProfilePictureRGB = "3099c5"
-                },
-                new StudentsListItemViewModel
-                {
-                    FirstName= "Jesse",
-                    ProfilePicture = "JA",
-                    LastName = "Hey dude, here are new icons",
-                    ProfilePictureRGB = "fe4503",
-                    IsSelected = true
-                },
-                new StudentsListItemViewModel
-                {
-                    FirstName= "Parnell",
-                    ProfilePicture = "PL",
-                    LastName = "The new server is up, got 192.168.1.1",
-                    ProfilePictureRGB = "00d405"
-                },
-                new StudentsListItemViewModel
-                {
-                    FirstName= "Luke",
-                    ProfilePicture = "LM",
-                    LastName = "this chat app is awesome! I bet it will be fast too",
-                    ProfilePictureRGB = "3099c5"
-                }
-            };
+            //    new StudentsListItemViewModel
+            //    {
+            //        FirstName= "Luke",
+            //        ProfilePicture = "LM",
+            //        LastName = "this chat app is awesome! I bet it will be fast too",
+            //        ProfilePictureRGB = "3099c5"
+            //    },
+            //    new StudentsListItemViewModel
+            //    {
+            //        FirstName= "Jesse",
+            //        ProfilePicture = "JA",
+            //        LastName = "Hey dude, here are new icons",
+            //        ProfilePictureRGB = "fe4503",
+            //        IsSelected = true
+            //    },
+            //    new StudentsListItemViewModel
+            //    {
+            //        FirstName= "Parnell",
+            //        ProfilePicture = "PL",
+            //        LastName = "The new server is up, got 192.168.1.1",
+            //        ProfilePictureRGB = "00d405"
+            //    },
+            //    new StudentsListItemViewModel
+            //    {
+            //        FirstName= "Luke",
+            //        ProfilePicture = "LM",
+            //        LastName = "this chat app is awesome! I bet it will be fast too",
+            //        ProfilePictureRGB = "3099c5"
+            //    }
+            //};
         }
 
         #endregion
@@ -82,11 +74,24 @@ namespace PesonalFilesOfStudents.Core
             {
                 studs.Add(new StudentsListItemViewModel
                 {
-                    FirstName = stud.LastName + " " + stud.FirstName + " " + stud.MiddleName,
-                    LastName = "Group " + stud.Group.ToString(),
-                    ProfilePicture = stud.LastName[0].ToString() + stud.FirstName[0].ToString(),
-                    ProfilePictureRGB = Colors[rnd.Next(2)]
-
+                    StudentID = stud.StudentID,
+                    StudentFirstName = stud.StudentFirstName,
+                    StudentLastName = stud.StudentLastName,
+                    StudentMiddleName = stud.StudentMiddleName,
+                    StudentGroup = stud.StudentGroup,
+                    StudentBirthDate = stud.StudentBirthDate,
+                    StudentFaculty = stud.StudentFaculty,
+                    StudentCourse = stud.StudentCourse,
+                    StudentGender = stud.StudentGender,
+                    StudentRegistration = stud.StudentRegistration,
+                    StudentINN = stud.StudentINN,
+                    StudentSNILS = stud.StudentSNILS,
+                    PassportNumber = stud.PassportNumber,
+                    PassportSeries = stud.PassportSeries,
+                    PassportIssuedBy = stud.PassportIssuedBy,
+                    PassportIssuedDate = stud.PassportIssuedDate,
+                    ItemHeader = string.Format("{0} {1} {2}",stud.StudentLastName.Trim(),stud.StudentFirstName.Trim(),stud.StudentMiddleName.Trim()),
+                    ItemInformation = string.Format("Id : {0}  Group : {1}",stud.StudentID,stud.StudentGroup)
                 });
             }
 

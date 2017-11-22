@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PesonalFilesOfStudents"
              xmlns:core="clr-namespace:PesonalFilesOfStudents.Core;assembly=PesonalFilesOfStudents.Core"
-             DataContext="{x:Static core:StudentInformationDesignModel.Instance}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="800" d:DesignWidth="1500">
 
     <Grid Background="{StaticResource ForegroundLightBrush}">
         <Grid.RowDefinitions>
@@ -21,14 +20,17 @@
         </Grid.RowDefinitions>
 
         <!-- Photo -->
-        <Image DataContext="{Binding ImageAttachment}"
-               Source="{Binding LocalFilePath}"
-               />
+        <Image Source="{Binding Image}" MaxWidth="400"/>
 
         <!-- Information -->
 
-        <Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -36,51 +38,134 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
+            
+            <!-- Student -->
+            <TextBlock Grid.ColumnSpan="2" 
+                       Grid.Row="0" 
+                       Text="Student"
+                       FontSize="{StaticResource FontSizeXXLarge}"
+                       FontFamily="{StaticResource LatoBold}"
+                       Foreground="{StaticResource WordLightOrangeBrush}"/>
 
-            <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
+            <!-- Underline -->
+            <Border Grid.Row="1"
+                    Grid.ColumnSpan="7"
+                    Height="1"
+                    Background="{StaticResource WordOrangeBrush}"/>
 
-                <local:TextEntryControl DataContext="{Binding FirstName}"/>
-                <local:TextEntryControl DataContext="{Binding LastName}" Grid.Row="1"/>
-                <local:TextEntryControl DataContext="{Binding Registration}"
+            <StackPanel Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True">
+
+                <local:TextEntryControl DataContext="{Binding StudentID}" IsEnabled="False"/>
+                <local:TextEntryControl DataContext="{Binding StudentFirstName}"/>
+                <local:TextEntryControl DataContext="{Binding StudentLastName}" Grid.Row="1"/>
+                <local:TextEntryControl DataContext="{Binding StudentMiddleName}"
+                                        Grid.Column="1"
+                />
+                <local:TextEntryControl DataContext="{Binding StudentRegistration}"
                                         Grid.Row="2"
                 />
-                <local:TextEntryControl DataContext="{Binding Group}"
+                <local:TextEntryControl DataContext="{Binding StudentGroup}"
                                         Grid.Row="3"
                 />
-                <local:TextEntryControl DataContext="{Binding Gender}"
+                <local:TextEntryControl DataContext="{Binding StudentGender}"
                                         Grid.Row="4"
                 />
 
             </StackPanel>
 
-            <StackPanel Grid.Column="1" local:TextEntryWidthMatcherProperty.Value="True">
-                <local:TextEntryControl DataContext="{Binding MiddleName}"
-                                        Grid.Column="1"
-                                        Margin="15 0 0 0"
-                />
-                <local:TextEntryControl DataContext="{Binding BirthDate}" 
+            <StackPanel Grid.Row="2" Grid.Column="1" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+                <local:TextEntryControl DataContext="{Binding StudentBirthDate}" 
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Margin="15 0 0 0"
                 />
-                <local:TextEntryControl DataContext="{Binding Course}"
+                <local:TextEntryControl DataContext="{Binding StudentCourse}"
                                         Grid.Row="2"
                                         Grid.Column="2"
-                                        Margin="15 0 0 0"
                 />
-                <local:TextEntryControl DataContext="{Binding Faculty}"
+                <local:TextEntryControl DataContext="{Binding StudentFaculty}"
                                         Grid.Row="3" 
                                         Grid.Column="3"
-                                        Margin="15 0 0 0"
                 />
-                <local:TextEntryControl DataContext="{Binding ImageAttachment}"
+                <local:TextEntryControl DataContext="{Binding StudentProfilePhoto}"
                                         Grid.Row="4"
                                         Grid.Column="4"
-                                        Margin="15 0 0 0"
                 />
+                <local:TextEntryControl DataContext="{Binding StudentINN}"/>
+                <local:TextEntryControl DataContext="{Binding StudentSNILS}"/>
+
+            </StackPanel>
+            
+            <!-- Passport -->
+            <TextBlock Grid.Column="3"  
+                       Margin="15 0 0 0"
+                       Text="Passport"
+                       FontSize="{StaticResource FontSizeXXLarge}"
+                       FontFamily="{StaticResource LatoBold}"
+                       Foreground="{StaticResource WordLightOrangeBrush}"
+                       />
+
+            <StackPanel Grid.Column="3" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+
+                <local:TextEntryControl DataContext="{Binding PassportNumber}"/>
+                <local:TextEntryControl DataContext="{Binding PassportSeries}"/>
+                <local:TextEntryControl DataContext="{Binding PassportIssuedBy}"
+                />
+                <local:TextEntryControl DataContext="{Binding PassportIssuedDate}"
+                />
+
+            </StackPanel>
+
+            <!-- Parent -->
+            <TextBlock Grid.Column="4"  
+                       Margin="15 0 0 0"
+                       Text="Parent"
+                       FontSize="{StaticResource FontSizeXXLarge}"
+                       FontFamily="{StaticResource LatoBold}"
+                       Foreground="{StaticResource WordLightOrangeBrush}"
+            />
+
+            <StackPanel Grid.Column="4" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+
+                <local:TextEntryControl DataContext="{Binding ParentFirstName}"/>
+                <local:TextEntryControl DataContext="{Binding ParentLastName}"/>
+                <local:TextEntryControl DataContext="{Binding ParentMiddleName}"
+                />
+                <local:TextEntryControl DataContext="{Binding ParentPhone}"
+                />
+
+            </StackPanel>
+
+            <!-- Insurence -->
+            <TextBlock Grid.Column="5"  
+                       Text="Insurence"
+                       Margin="15 0 0 0"
+                       FontSize="{StaticResource FontSizeXXLarge}"
+                       FontFamily="{StaticResource LatoBold}"
+                       Foreground="{StaticResource WordLightOrangeBrush}"
+            />
+
+            <StackPanel Grid.Column="5" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+
+                <local:TextEntryControl DataContext="{Binding InsurencePolicyNumber}"/>
+                <local:TextEntryControl DataContext="{Binding InsurencePolicyCompany}" Grid.Row="1"/>
+
+            </StackPanel>
+
+            <!-- Education -->
+            <TextBlock Grid.Column="6"  
+                       Text="Education"
+                       Margin="15 0 0 0"
+                       FontSize="{StaticResource FontSizeXXLarge}"
+                       FontFamily="{StaticResource LatoBold}"
+                       Foreground="{StaticResource WordLightOrangeBrush}"
+            />
+
+            <StackPanel Grid.Column="6" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+
+                <local:TextEntryControl DataContext="{Binding EducationFile}"/>
+                <local:TextEntryControl DataContext="{Binding EducationEndDate}" Grid.Row="1"/>
 
             </StackPanel>
 

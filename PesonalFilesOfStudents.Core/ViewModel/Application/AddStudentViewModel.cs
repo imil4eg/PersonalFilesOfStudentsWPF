@@ -14,55 +14,145 @@ namespace PesonalFilesOfStudents.Core
     {
         #region Public Properties
 
+        #region Student
+
         /// <summary>
         /// The current students name
         /// </summary>
-        public TextEntryViewModel FirstName { get; set; }
+        public TextEntryViewModel StudentFirstName { get; set; }
 
         /// <summary>
         /// The current students middle name
         /// </summary>
-        public TextEntryViewModel MiddleName { get; set; }
+        public TextEntryViewModel StudentMiddleName { get; set; }
 
         /// <summary>
         /// The current students last name
         /// </summary>
-        public TextEntryViewModel LastName { get; set; }
+        public TextEntryViewModel StudentLastName { get; set; }
 
         /// <summary>
         /// The current students birdth date
         /// </summary>
-        public TextEntryViewModel BirthDate { get; set; }
+        public TextEntryViewModel StudentBirthDate { get; set; }
 
         /// <summary>
         /// The current students place of living
         /// </summary>
-        public TextEntryViewModel Registration { get; set; }
+        public TextEntryViewModel StudentRegistration { get; set; }
 
         /// <summary>
         /// The current students course number
         /// </summary>
-        public TextEntryViewModel Course { get; set; }
+        public TextEntryViewModel StudentCourse { get; set; }
 
         /// <summary>
         /// The current students group number
         /// </summary>
-        public TextEntryViewModel Group { get; set; }
+        public TextEntryViewModel StudentGroup { get; set; }
 
         /// <summary>
         /// The current students faculty number
         /// </summary>
-        public TextEntryViewModel Faculty { get; set; }
+        public TextEntryViewModel StudentFaculty { get; set; }
 
         /// <summary>
         /// The current students gender
         /// </summary>
-        public TextEntryViewModel Gender { get; set; }
+        public TextEntryViewModel StudentGender { get; set; }
+
+        /// <summary>
+        /// The current students INN number
+        /// </summary>
+        public TextEntryViewModel StudentINN { get; set; }
+
+        /// <summary>
+        /// The current students SNINLS number
+        /// </summary>
+        public TextEntryViewModel StudentSNILS { get; set; }
 
         /// <summary>
         /// The current students profile photo
         /// </summary>
-        public TextEntryViewModel ProfilePhoto { get; set; }
+        public TextEntryViewModel StudentProfilePhoto { get; set; }
+
+        #endregion
+
+        #region Passport
+
+        /// <summary>
+        /// The current students number of passport
+        /// </summary>
+        public TextEntryViewModel PassportNumber { get; set; }
+
+        /// <summary>
+        /// The current students series of passport
+        /// </summary>
+        public TextEntryViewModel PassportSeries { get; set; }
+
+        /// <summary>
+        /// The current students name of point of issue
+        /// </summary>
+        public TextEntryViewModel PassportIssuedBy { get; set; }
+
+        /// <summary>
+        /// Thre current students passports issue date
+        /// </summary>
+        public TextEntryViewModel PassportIssuedDate { get; set; }
+
+        #endregion
+
+        #region Parent
+
+        /// <summary>
+        /// The current students parents last name
+        /// </summary>
+        public TextEntryViewModel ParentLastName { get; set; }
+
+        /// <summary>
+        /// The current students parents first name
+        /// </summary>
+        public TextEntryViewModel ParentFirstName { get; set; }
+
+        /// <summary>
+        /// The current students parents middle name
+        /// </summary>
+        public TextEntryViewModel ParentMiddleName { get; set; }
+
+        /// <summary>
+        /// The current students parents phone number
+        /// </summary>
+        public TextEntryViewModel ParentPhone { get; set; }
+
+        #endregion
+
+        #region Insurance Policy
+
+        /// <summary>
+        /// The current students number of insurance policy
+        /// </summary>
+        public TextEntryViewModel InsurencePolicyNumber { get ; set; }
+
+        /// <summary>
+        /// The current students company of insurance policy
+        /// </summary>
+        public TextEntryViewModel InsurencePolicyCompany { get; set; }
+
+        #endregion
+
+        #region Document On Education 
+
+        /// <summary>
+        /// The current students file on education
+        /// </summary>
+        public TextEntryViewModel EducationFile { get; set; }
+
+        /// <summary>
+        /// The current students end date of education
+        /// </summary>
+        public TextEntryViewModel EducationEndDate { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -91,17 +181,40 @@ namespace PesonalFilesOfStudents.Core
             CloseCommand = new RelayCommand(Close);
             OpenCommand = new RelayCommand(Open);
 
+            // Student textboxes
+            StudentFirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = "" };
+            StudentMiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = "" };
+            StudentLastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = "" };
+            StudentBirthDate = new TextEntryDesignModel { Label = "Birth Date", OriginalText = "" };
+            StudentRegistration = new TextEntryDesignModel { Label = "Registration", OriginalText = "" };
+            StudentCourse = new TextEntryDesignModel { Label = "Course", OriginalText = "" };
+            StudentGroup = new TextEntryDesignModel { Label = "Group", OriginalText = "" };
+            StudentFaculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = "" };
+            StudentGender = new TextEntryDesignModel { Label = "Gender", OriginalText = "" };
+            StudentINN = new TextEntryViewModel {Label = "INN", OriginalText = ""};
+            StudentSNILS = new TextEntryViewModel {Label = "SNILS", OriginalText = ""};
+            StudentProfilePhoto = new TextEntryDesignModel { Label = "Profile Photo", OriginalText = "" };
 
-            FirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = "XD" };
-            MiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = "XD" };
-            LastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = "XD" };
-            BirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = "XD" };
-            Registration = new TextEntryDesignModel { Label = "Registration", OriginalText = "XD" };
-            Course = new TextEntryDesignModel { Label = "Course", OriginalText = "XD" };
-            Group = new TextEntryDesignModel { Label = "Group", OriginalText = "XD" };
-            Faculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = "XD" };
-            Gender = new TextEntryDesignModel { Label = "Gender", OriginalText = "XD" };
-            ProfilePhoto = new TextEntryDesignModel { Label = "Profile photo", OriginalText = "XD" };
+            // Passport textboxes
+            PassportNumber = new TextEntryViewModel {Label = "Number", OriginalText = ""};
+            PassportSeries = new TextEntryViewModel {Label = "Series", OriginalText = ""};
+            PassportIssuedBy = new TextEntryViewModel {Label = "Issued By", OriginalText = ""};
+            PassportIssuedDate = new TextEntryViewModel {Label = "Issued Date", OriginalText = ""};
+            
+            // Parent textboxes
+            ParentLastName = new TextEntryViewModel {Label = "Last Name", OriginalText = ""};
+            ParentFirstName = new TextEntryViewModel {Label = "First Name", OriginalText = ""};
+            ParentMiddleName = new TextEntryViewModel {Label = "Middle Name", OriginalText = ""};
+            ParentPhone = new TextEntryViewModel {Label = "Phone", OriginalText = ""};
+
+            // Insurance Policy textboxes
+            InsurencePolicyNumber = new TextEntryViewModel {Label = "Number", OriginalText = ""};
+            InsurencePolicyCompany = new TextEntryViewModel {Label = "Company", OriginalText = ""};
+
+            // Documents On Education textboxes
+            EducationFile = new TextEntryViewModel {Label = "File", OriginalText = ""};
+            EducationEndDate = new TextEntryViewModel {Label = "Date Of End", OriginalText = ""};
+
         }
 
         #endregion

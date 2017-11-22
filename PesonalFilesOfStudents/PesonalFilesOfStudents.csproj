@@ -157,7 +157,7 @@
     <Compile Include="ValueConverters\MenuItemTypeToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\HorizontalAligmentConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
-    <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
+    <Compile Include="ValueConverters\ApplicationPageHelpers.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\PopupContentConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />

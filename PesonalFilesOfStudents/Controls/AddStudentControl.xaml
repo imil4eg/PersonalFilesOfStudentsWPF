@@ -13,29 +13,29 @@
     <Border Background="{StaticResource ForegroundLightBrush}" 
             Padding="20">
 
-        <Grid>
-
-            <Grid.RowDefinitions>
-
-                <!-- Title Bar-->
-                <RowDefinition Height="Auto" />
-
-                <!-- Content -->
-                <RowDefinition Height="*" />
-
-            </Grid.RowDefinitions>
-
-            <!-- Title Bar -->
             <Grid>
 
-                <Grid.ColumnDefinitions>
-                    
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="1" 
+                    <!-- Title Bar-->
+                    <RowDefinition Height="Auto" />
+
+                    <!-- Content -->
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+
+                <!-- Title Bar -->
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="1" 
                       Text="Adding student"
                        FontFamily="{StaticResource LatoBold}"
                        FontSize="{StaticResource FontSizeXLarge}"
@@ -44,7 +44,7 @@
                        VerticalAlignment="Center"
                        />
 
-                <Button Style="{StaticResource IconGrowButton}"
+                    <Button Style="{StaticResource IconGrowButton}"
                         Content="{StaticResource FontAwesomeArrowLeftIcon}"
                         FontFamily="{StaticResource FontAwesome}"
                         Command="{Binding CloseCommand}"
@@ -54,59 +54,137 @@
                         Height="40"
                         />
 
-            </Grid>
-
-            <!-- Content -->
-            <Grid Grid.Row="1" VerticalAlignment="Top"
+                </Grid>
+                
+                <ScrollViewer Grid.Row="1">
+                <!-- Content -->
+                <Grid Grid.Row="1" VerticalAlignment="Top"
                   local:PanelChildMarginProperty.Value="15 5"
                   >
-                
-                <Grid.ColumnDefinitions>
 
-                    <!-- Text blocks -->
-                    <ColumnDefinition Width="Auto" />
+                    <Grid.ColumnDefinitions>
 
-                    <!-- Text boxes-->
-                    <ColumnDefinition Width="Auto" />
+                        <!-- Text blocks -->
+                        <ColumnDefinition Width="Auto" />
 
-                </Grid.ColumnDefinitions>
+                        <!-- Text boxes-->
+                        <ColumnDefinition Width="Auto" />
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-            
-                <!-- Profile Details -->
-                <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
+                    </Grid.ColumnDefinitions>
 
-                    <local:TextEntryControl DataContext="{Binding FirstName}"/>
-                    <local:TextEntryControl DataContext="{Binding MiddleName}"/>
-                    <local:TextEntryControl DataContext="{Binding LastName}"/>
-                    <local:TextEntryControl DataContext="{Binding BirthDate}"/>
-                    <local:TextEntryControl DataContext="{Binding Registration}"/>
-                    <local:TextEntryControl DataContext="{Binding Course}"/>
-                    <local:TextEntryControl DataContext="{Binding Group}"/>
-                    <local:TextEntryControl DataContext="{Binding Faculty}"/>
-                    <local:TextEntryControl DataContext="{Binding Gender}"/>
-                    <local:TextEntryControl DataContext="{Binding ProfilePhoto}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                </StackPanel>
-                
+                    <!-- Profile Details -->
+                    <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
+
+                        <Border Height="2" Background="{StaticResource WordOrangeBrush}" Grid.Row="1"/>
+
+                        <!-- Student information header -->
+                        <TextBlock Text="Student"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                                   />
+
+                        <!-- header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <!-- Entry boxes -->
+                        <local:TextEntryControl DataContext="{Binding StudentFirstName}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentMiddleName}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentLastName}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentBirthDate}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentRegistration}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentCourse}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentGroup}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentFaculty}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentGender}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentINN}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentSNILS}"/>
+                        <local:TextEntryControl DataContext="{Binding StudentProfilePhoto}"/>
+
+                        <!-- Passport information header-->
+                        <TextBlock Text="Passport"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                        />
+
+                        <!-- Header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <!-- Entry boxes -->
+                        <local:TextEntryControl DataContext="{Binding PassportNumber}"/>
+                        <local:TextEntryControl DataContext="{Binding PassportSeries}"/>
+                        <local:TextEntryControl DataContext="{Binding PassportIssuedBy}"/>
+                        <local:TextEntryControl DataContext="{Binding PassportIssuedDate}"/>
+
+                        <!-- Insurance policy information header -->
+                        <TextBlock Text="Insurance policy"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                        />
+
+                        <!-- header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <!-- Entry boxes -->
+                        <local:TextEntryControl DataContext="{Binding InsurencePolicyNumber}"/>
+                        <local:TextEntryControl DataContext="{Binding InsurencePolicyCompany}"/>
+
+                        <!-- Document On Education information header -->
+                        <TextBlock Text="Document On Education"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                        />
+
+                        <!-- header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <local:TextEntryControl DataContext="{Binding EducationFile}"/>
+                        <local:TextEntryControl DataContext="{Binding EducationEndDate}"/>
+
+                        <!-- Parent information header -->
+                        <TextBlock Text="Parent"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                        />
+
+                        <!-- header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <!-- Entry boxes -->
+                        <local:TextEntryControl DataContext="{Binding ParentFirstName}"/>
+                        <local:TextEntryControl DataContext="{Binding ParentMiddleName}"/>
+                        <local:TextEntryControl DataContext="{Binding ParentLastName}"/>
+                        <local:TextEntryControl DataContext="{Binding ParentPhone}"/>
 
 
+                    </StackPanel>
+
+
+
+
+                </Grid>
+            </ScrollViewer>
 
             </Grid>
 
-        </Grid>
-
+        
     </Border>
     
 </UserControl>

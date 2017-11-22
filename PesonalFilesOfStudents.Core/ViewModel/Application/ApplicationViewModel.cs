@@ -17,7 +17,7 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Login;
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Login; 
 
         /// <summary>
         /// The view model to use for the current page when the CurrentPage changes
@@ -61,10 +61,16 @@ namespace PesonalFilesOfStudents.Core
         public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
 
+            // Set the view model
+            CurrentPageViewModel = viewModel;
+
             // Set the current page 
             CurrentPage = page;
 
-            // Show side menu or not?
+            // Fire off a CurrentPage changed event
+            OnPropertyChanged(nameof(CurrentPage));
+
+            // Show side menu or not? 
             SideMenuVisible = page == ApplicationPage.Students;
 
         }

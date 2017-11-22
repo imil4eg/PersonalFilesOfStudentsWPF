@@ -12,7 +12,7 @@ namespace PesonalFilesOfStudents.Core
 
         public static List<Student> TakeStudents()
         {
-            System.Collections.Generic.List<Student> student = new List<Student>();
+            List<Student> students = new List<Student>();
 
             SqlConnection con = new SqlConnection(connectionString);
             try
@@ -26,18 +26,95 @@ namespace PesonalFilesOfStudents.Core
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    student.Add(new Student
+                    students.Add(new Student
                     {
                         StudentID = (int)reader["StudentID"],
-                        FirstName = reader["FirstName"].ToString(),
-                        MiddleName = reader["MiddleName"].ToString(),
-                        LastName = reader["LastName"].ToString(),
-                        //BirthDate = DateTime.Parse(reader["Birth_Date"].ToString()),
-                        Course = (int)reader["Course"],
-                        Faculty = (int)reader["Faculty"],
-                        Gender = reader["Gender"].ToString(),
-                        Group = (int)reader["Group"]
+                        StudentFirstName = reader["FirstName"].ToString(),
+                        StudentMiddleName = reader["MiddleName"].ToString(),
+                        StudentLastName = reader["LastName"].ToString(),
+                        //StudentBirthDate = DateTime.Parse(reader["Birth_Date"].ToString()) ?? DateTime.MinValue,
+                        StudentCourse = (int)reader["Course"],
+                        StudentFaculty = (int)reader["Faculty"],
+                        StudentGender = reader["Gender"].ToString(),
+                        StudentGroup = (int)reader["Group"],
+                        StudentRegistration = reader["Registration"].ToString(),
+                        StudentINN = (long)reader["INN"],
+                        StudentSNILS = (long)reader["SNILS"]
                     });
+                }
+                reader.Close();
+
+                SqlCommand command2 = new SqlCommand("SELECT * FROM [dbo].[Passport]");
+
+                command2.Connection = con;
+
+                reader = command2.ExecuteReader();
+
+                int i = 0;
+
+                while (reader.Read())
+                {
+                    students[i].PassportNumber = (long)reader["Number"];
+                    students[i].PassportSeries = (long) reader["Series"];
+                    students[i].PassportIssuedBy = reader["IssuedBy"].ToString();
+                    //students[i].PassportIssuedDate = reader["IssuedDate"].ToString();
+
+                    i++;
+                }
+
+                reader.Close();
+
+                SqlCommand command3 = new SqlCommand("SELECT * FROM [dbo].[Parent]");
+
+                command3.Connection = con;
+
+                reader = command3.ExecuteReader();
+
+                i = 0;
+
+                while (reader.Read())
+                {
+                    students[i].ParentFirstName = reader["FirstName"].ToString();
+                    students[i].ParentLastName = reader["LastName"].ToString();
+                    students[i].ParentMiddleName = reader["MiddleName"].ToString();
+                    students[i].ParentPhone = (long)reader["Phone"];
+
+                    i++;
+                }
+
+                reader.Close();
+
+                SqlCommand command4 = new SqlCommand("SELECT * FROM [dbo].[InsurancePolicy]");
+
+                command4.Connection = con;
+
+                reader = command4.ExecuteReader();
+
+                i = 0;
+
+                while (reader.Read())
+                {
+                    students[i].InsuranceNumber = (long)reader["Number"];
+                    students[i].InsuranceCompany = reader["Company"].ToString();
+                }
+
+                reader.Close();
+
+                SqlCommand command5 = new SqlCommand("SELECT * FROM [dbo].[DocumentsOnEducation]");
+
+                command5.Connection = con;
+
+                reader = command5.ExecuteReader();
+
+                i = 0;
+
+                while (reader.Read())
+                {
+                    students[i].EducationFile = reader["File"].ToString();
+                    //students[i].EducationDateOfEnd = DateTime.Parse(reader["DateOfEnd"].ToString());
+
+                    i++;
+
                 }
             }
             catch (Exception ex)
@@ -49,7 +126,7 @@ namespace PesonalFilesOfStudents.Core
                 con.Close();
             }
 
-            return student;
+            return students;
         }
 
     }

@@ -66,6 +66,8 @@
                      Grid.Column="1"
                      Opacity="0"
                      FontSize="{StaticResource FontSizeRegular}"
+                     Foreground="{StaticResource WordOrangeBrush}"
+                     FontFamily="{StaticResource LatoBold}"
                      local:AnimateFadeInProperty.Value="{Binding Editing}"
                      local:FocusAndSelectProperty.Value="{Binding Editing}"
                      Padding="2"

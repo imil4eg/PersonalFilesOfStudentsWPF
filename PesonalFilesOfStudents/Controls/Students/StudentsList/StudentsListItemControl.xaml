@@ -32,23 +32,36 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Profile photo padding -->
-                                <Border Grid.Column="0" 
+                                <!--<Border Grid.Column="0" 
                                         Padding="8 15"
                                         >
-                                    <!-- Profile photo background -->
+                                    --><!-- Profile photo background --><!--
                                     <Border Background="{Binding ProfilePictureRGB, Converter={local:StringRGBToBrushConverter}}"
                                             Height="40"
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                             CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        <!-- Profile photo initials -->
-                                        <TextBlock Text="{Binding ProfilePicture}"
+                                        --><!-- Profile photo initials -->
+                                        <!--<TextBlock Text="{Binding ProfilePicture}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    Foreground="{StaticResource ForegroundLightBrush}"
                                                    FontSize="{StaticResource FontSizeXLarge}"
                                                    FontFamily="{StaticResource LatoRegular}"
-                                                        />
+                                                        />--><!--
+                                        <Image Source="pack://application:,,,/Images/index.png"/>
                                     </Border>
+                                </Border>-->
+
+                                <Border Grid.Column="0"
+                                        Padding="8 15">
+                                    
+                                    <Ellipse Height="40" 
+                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="pack://application:,,,/Images/index.png"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    
                                 </Border>
 
                                 <!-- Main content -->
@@ -56,7 +69,7 @@
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
 
                                         <!-- Name -->
-                                        <TextBlock Text="{Binding FirstName}" 
+                                        <TextBlock Text="{Binding ItemHeader}" 
                                                    Padding="0 0 0 2"
                                                    Foreground="{StaticResource WordBlueBrush}"
                                                    TextTrimming="CharacterEllipsis"
@@ -64,7 +77,7 @@
                                                         />
 
                                         <!-- Message -->
-                                        <TextBlock Text="{Binding LastName}"
+                                        <TextBlock Text="{Binding ItemInformation}"
                                                    Padding="0 2 0 0"
                                                    Foreground="{StaticResource ForegroundVeryDarkBrush}"
                                                    TextTrimming="CharacterEllipsis"
