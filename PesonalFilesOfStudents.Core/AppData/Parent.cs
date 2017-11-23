@@ -1,11 +1,11 @@
 ﻿namespace PesonalFilesOfStudents.Core
 {
-    public partial class Student
+    public class Parent
     {
-        ///// <summary>
-        ///// The students id,which parent is
-        ///// </summary>
-        //public int StudentId { get; set; }
+        /// <summary>
+        /// The students id,which parent is
+        /// </summary>
+        public int StudentId { get; set; }
 
         /// <summary>
         /// The parents last name
@@ -25,6 +25,6 @@
         /// <summary>
         /// The parents phone number
         /// </summary>
-        public long ParentPhone { get; set; }
+        public int ParentPhone { get; set; }
     }
 }

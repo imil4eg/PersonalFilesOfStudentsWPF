@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using static System.Net.Mime.MediaTypeNames;
@@ -108,24 +109,51 @@ namespace PesonalFilesOfStudents.Core
         #region Parent
 
         /// <summary>
+        /// The value to show 
+        ///// </summary>
+        //public bool FirstParentVisibility { get; set; } = true;
+
+        //public bool SecondParentVisibility { get; set; } = true;
+
+        /// <summary>
         /// The current students parents last name
         /// </summary>
-        public TextEntryViewModel ParentLastName { get; set; }
+        public TextEntryViewModel ParentLastName1 { get; set; }
 
         /// <summary>
         /// The current students parents first name
         /// </summary>
-        public TextEntryViewModel ParentFirstName { get; set; }
+        public TextEntryViewModel ParentFirstName1 { get; set; }
 
         /// <summary>
         /// The current students parents middle name
         /// </summary>
-        public TextEntryViewModel ParentMiddleName { get; set; }
+        public TextEntryViewModel ParentMiddleName1 { get; set; }
 
         /// <summary>
         /// The current students parents phone number
         /// </summary>
-        public TextEntryViewModel ParentPhone { get; set; }
+        public TextEntryViewModel ParentPhone1 { get; set; }
+
+        /// <summary>
+        /// The current students parents last name
+        /// </summary>
+        public TextEntryViewModel ParentLastName2 { get; set; }
+
+        /// <summary>
+        /// The current students parents first name
+        /// </summary>
+        public TextEntryViewModel ParentFirstName2 { get; set; }
+
+        /// <summary>
+        /// The current students parents middle name
+        /// </summary>
+        public TextEntryViewModel ParentMiddleName2 { get; set; }
+
+        /// <summary>
+        /// The current students parents phone number
+        /// </summary>
+        public TextEntryViewModel ParentPhone2 { get; set; }
 
         #endregion
 
@@ -148,12 +176,32 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// The current students file on education
         /// </summary>
-        public TextEntryViewModel EducationFile { get; set; }
+        public TextEntryViewModel EducationFile1 { get; set; }
 
         /// <summary>
         /// The current students end date of education
         /// </summary>
-        public TextEntryViewModel EducationEndDate { get; set; }
+        public TextEntryViewModel EducationEndDate1 { get; set; }
+
+        /// <summary>
+        /// The current students file on education
+        /// </summary>
+        public TextEntryViewModel EducationFile2 { get; set; }
+
+        /// <summary>
+        /// The current students end date of education
+        /// </summary>
+        public TextEntryViewModel EducationEndDate2 { get; set; }
+
+        /// <summary>
+        /// The current students file on education
+        /// </summary>
+        public TextEntryViewModel EducationFile3 { get; set; }
+
+        /// <summary>
+        /// The current students end date of education
+        /// </summary>
+        public TextEntryViewModel EducationEndDate3 { get; set; }
 
         #endregion
 
@@ -176,6 +224,15 @@ namespace PesonalFilesOfStudents.Core
         /// The view model for the attachment menu
         /// </summary>
         public StudentInformationAttachmentPopupMenuViewModel AttachmentMenu { get; set; }
+
+        #endregion
+
+        #region Helpers
+
+        private List<Parent> _parents = SqlDbConnect.TakeParents();
+        private List<Education> _educations = SqlDbConnect.TakeEducations();
+        private List<Parent> teParents = new List<Parent>();
+        private List<Education> tempEducations = new List<Education>();
 
         #endregion
 
@@ -209,13 +266,15 @@ namespace PesonalFilesOfStudents.Core
             
             StudentInformation = StudentInformation ?? SqlDbConnect.TakeStudents().FirstOrDefault();
 
+            teParents = _parents.Where(x => x.StudentId == StudentInformation.StudentID).ToList();
+            tempEducations = _educations.Where(x => x.StudentID == StudentInformation.StudentID).ToList();
 
             // Student textboxes
             StudentID = new TextEntryViewModel { Label = "ID", OriginalText = StudentInformation.StudentID.ToString() };
             StudentFirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = StudentInformation.StudentFirstName };
             StudentMiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = StudentInformation.StudentMiddleName };
             StudentLastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = StudentInformation.StudentLastName };
-            StudentBirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = StudentInformation.StudentBirthDate.ToString() };
+            StudentBirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = StudentInformation.StudentBirthDate.ToString("dd/M/yyyy") };
             StudentRegistration = new TextEntryDesignModel { Label = "Registration", OriginalText = StudentInformation.StudentRegistration };
             StudentCourse = new TextEntryDesignModel { Label = "Course", OriginalText = StudentInformation.StudentCourse.ToString() };
             StudentGroup = new TextEntryDesignModel { Label = "Group", OriginalText = StudentInformation.StudentGroup.ToString() };
@@ -229,21 +288,30 @@ namespace PesonalFilesOfStudents.Core
             PassportNumber = new TextEntryViewModel { Label = "Number", OriginalText = StudentInformation.PassportNumber.ToString() };
             PassportSeries = new TextEntryViewModel { Label = "Series", OriginalText = StudentInformation.PassportSeries.ToString() };
             PassportIssuedBy = new TextEntryViewModel { Label = "Issued By", OriginalText = StudentInformation.PassportIssuedBy };
-            PassportIssuedDate = new TextEntryViewModel { Label = "Issued Date", OriginalText = StudentInformation.PassportIssuedDate };
+            PassportIssuedDate = new TextEntryViewModel { Label = "Issued Date", OriginalText = StudentInformation.PassportIssuedDate.ToString("dd/M/yyyy") };
 
-            //// Parent textboxes
-            //ParentLastName = new TextEntryViewModel { Label = "Last Name", OriginalText = "Pupkin" };
-            //ParentFirstName = new TextEntryViewModel { Label = "First Name", OriginalText = "Petrovich" };
-            //ParentMiddleName = new TextEntryViewModel { Label = "Middle Name", OriginalText = "Kek" };
-            //ParentPhone = new TextEntryViewModel { Label = "Phone", OriginalText = "322-228-1488" };
+            // Parent textboxes
+            ParentLastName1 = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentLastName : " "};
+            ParentFirstName1 = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentFirstName : " "};
+            ParentMiddleName1 = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentMiddleName : " "};
+            ParentPhone1 = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 0 ? teParents[0].ParentPhone.ToString() : " "};
+            ParentLastName2 = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentLastName : " "};
+            ParentFirstName2 = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentFirstName : " "};
+            ParentMiddleName2 = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentMiddleName : " "};
+            ParentPhone2 = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 1 ? teParents[1].ParentPhone.ToString() : " "};
+
 
             //// Insurance Policy textboxes
-            //InsurencePolicyNumber = new TextEntryViewModel { Label = "Number", OriginalText = "23852395" };
-            //InsurencePolicyCompany = new TextEntryViewModel { Label = "Company", OriginalText = "SuperSaveCompany" };
+            InsurencePolicyNumber = new TextEntryViewModel { Label = "Number", OriginalText = StudentInformation.InsuranceNumber.ToString() };
+            InsurencePolicyCompany = new TextEntryViewModel { Label = "Company", OriginalText = StudentInformation.InsuranceCompany };
 
             //// Documents On Education textboxes
-            //EducationFile = new TextEntryViewModel { Label = "File", OriginalText = "Putyaga n1" };
-            //EducationEndDate = new TextEntryViewModel { Label = "Date Of End", OriginalText = "2001" };
+            EducationFile1 = new TextEntryViewModel { Label = "File", OriginalText = tempEducations.Count > 0 ? tempEducations[0].EducationFile : " " };
+            EducationEndDate1 = new TextEntryViewModel { Label = "Date Of End", OriginalText = tempEducations.Count > 0 ? tempEducations[0].EducationDateOfEnd.ToString("dd/M/yyyy") : " " };
+            EducationFile2 = new TextEntryViewModel { Label = "File", OriginalText = tempEducations.Count > 1 ? tempEducations[1].EducationFile : " " };
+            EducationEndDate2 = new TextEntryViewModel { Label = "Date Of End", OriginalText = tempEducations.Count > 1 ? tempEducations[1].EducationDateOfEnd.ToString("dd/M/yyyy") : " " };
+            EducationFile3 = new TextEntryViewModel { Label = "File", OriginalText = tempEducations.Count > 2 ? tempEducations[2].EducationFile : " " };
+            EducationEndDate3 = new TextEntryViewModel { Label = "Date Of End", OriginalText = tempEducations.Count > 2 ? tempEducations[2].EducationDateOfEnd.ToString("dd/M/yyyy") : " " };
         }
 
         #endregion

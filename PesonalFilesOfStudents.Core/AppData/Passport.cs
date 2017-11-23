@@ -1,4 +1,6 @@
-﻿namespace PesonalFilesOfStudents.Core
+﻿using System;
+
+namespace PesonalFilesOfStudents.Core
 {
     public partial class Student
     {
@@ -20,6 +22,6 @@
         /// <summary>
         /// The passports issued date
         /// </summary>
-        public string PassportIssuedDate { get; set; }
+        public DateTime PassportIssuedDate { get; set; }
     }
 }

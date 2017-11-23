@@ -66,7 +66,7 @@
                      Grid.Column="1"
                      Opacity="0"
                      FontSize="{StaticResource FontSizeRegular}"
-                     Foreground="{StaticResource WordOrangeBrush}"
+                     Foreground="{StaticResource WordBlueBrush}"
                      FontFamily="{StaticResource LatoBold}"
                      local:AnimateFadeInProperty.Value="{Binding Editing}"
                      local:FocusAndSelectProperty.Value="{Binding Editing}"
@@ -76,6 +76,8 @@
 
              <!--Content--> 
             <TextBlock Text="{Binding OriginalText}" 
+                       Foreground="{StaticResource WordBlueBrush}"
+                       FontFamily="{StaticResource LatoBold}"
                        Grid.Column="1"
                        local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
                        Margin="15 8"

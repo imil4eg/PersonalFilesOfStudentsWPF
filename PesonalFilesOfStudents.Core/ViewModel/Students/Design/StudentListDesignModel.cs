@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PesonalFilesOfStudents.Core
 {
@@ -75,9 +76,9 @@ namespace PesonalFilesOfStudents.Core
                 studs.Add(new StudentsListItemViewModel
                 {
                     StudentID = stud.StudentID,
-                    StudentFirstName = stud.StudentFirstName,
-                    StudentLastName = stud.StudentLastName,
-                    StudentMiddleName = stud.StudentMiddleName,
+                    StudentFirstName = stud.StudentFirstName.Trim(),
+                    StudentLastName = stud.StudentLastName.Trim(),
+                    StudentMiddleName = stud.StudentMiddleName.Trim(),
                     StudentGroup = stud.StudentGroup,
                     StudentBirthDate = stud.StudentBirthDate,
                     StudentFaculty = stud.StudentFaculty,
@@ -90,6 +91,8 @@ namespace PesonalFilesOfStudents.Core
                     PassportSeries = stud.PassportSeries,
                     PassportIssuedBy = stud.PassportIssuedBy,
                     PassportIssuedDate = stud.PassportIssuedDate,
+                    InsuranceNumber = stud.InsuranceNumber,
+                    InsuranceCompany = stud.InsuranceCompany,
                     ItemHeader = string.Format("{0} {1} {2}",stud.StudentLastName.Trim(),stud.StudentFirstName.Trim(),stud.StudentMiddleName.Trim()),
                     ItemInformation = string.Format("Id : {0}  Group : {1}",stud.StudentID,stud.StudentGroup)
                 });

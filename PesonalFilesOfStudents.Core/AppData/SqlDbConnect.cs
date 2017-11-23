@@ -32,89 +32,21 @@ namespace PesonalFilesOfStudents.Core
                         StudentFirstName = reader["FirstName"].ToString(),
                         StudentMiddleName = reader["MiddleName"].ToString(),
                         StudentLastName = reader["LastName"].ToString(),
-                        //StudentBirthDate = DateTime.Parse(reader["Birth_Date"].ToString()) ?? DateTime.MinValue,
+                        StudentBirthDate = DateTime.Parse(reader["Birth Date"].ToString()),
                         StudentCourse = (int)reader["Course"],
                         StudentFaculty = (int)reader["Faculty"],
                         StudentGender = reader["Gender"].ToString(),
                         StudentGroup = (int)reader["Group"],
                         StudentRegistration = reader["Registration"].ToString(),
                         StudentINN = (long)reader["INN"],
-                        StudentSNILS = (long)reader["SNILS"]
+                        StudentSNILS = (long)reader["SNILS"],
+                        PassportNumber = (long)reader["PassportNumber"],
+                        PassportSeries = (long)reader["PassportSeries"],
+                        PassportIssuedBy = reader["PassportIssuedBy"].ToString(),
+                        PassportIssuedDate = DateTime.Parse(reader["PassportIssuedDate"].ToString()),
+                        InsuranceNumber = (long)reader["InsuranceNumber"],
+                        InsuranceCompany = reader["InsuranceCompany"].ToString()
                     });
-                }
-                reader.Close();
-
-                SqlCommand command2 = new SqlCommand("SELECT * FROM [dbo].[Passport]");
-
-                command2.Connection = con;
-
-                reader = command2.ExecuteReader();
-
-                int i = 0;
-
-                while (reader.Read())
-                {
-                    students[i].PassportNumber = (long)reader["Number"];
-                    students[i].PassportSeries = (long) reader["Series"];
-                    students[i].PassportIssuedBy = reader["IssuedBy"].ToString();
-                    //students[i].PassportIssuedDate = reader["IssuedDate"].ToString();
-
-                    i++;
-                }
-
-                reader.Close();
-
-                SqlCommand command3 = new SqlCommand("SELECT * FROM [dbo].[Parent]");
-
-                command3.Connection = con;
-
-                reader = command3.ExecuteReader();
-
-                i = 0;
-
-                while (reader.Read())
-                {
-                    students[i].ParentFirstName = reader["FirstName"].ToString();
-                    students[i].ParentLastName = reader["LastName"].ToString();
-                    students[i].ParentMiddleName = reader["MiddleName"].ToString();
-                    students[i].ParentPhone = (long)reader["Phone"];
-
-                    i++;
-                }
-
-                reader.Close();
-
-                SqlCommand command4 = new SqlCommand("SELECT * FROM [dbo].[InsurancePolicy]");
-
-                command4.Connection = con;
-
-                reader = command4.ExecuteReader();
-
-                i = 0;
-
-                while (reader.Read())
-                {
-                    students[i].InsuranceNumber = (long)reader["Number"];
-                    students[i].InsuranceCompany = reader["Company"].ToString();
-                }
-
-                reader.Close();
-
-                SqlCommand command5 = new SqlCommand("SELECT * FROM [dbo].[DocumentsOnEducation]");
-
-                command5.Connection = con;
-
-                reader = command5.ExecuteReader();
-
-                i = 0;
-
-                while (reader.Read())
-                {
-                    students[i].EducationFile = reader["File"].ToString();
-                    //students[i].EducationDateOfEnd = DateTime.Parse(reader["DateOfEnd"].ToString());
-
-                    i++;
-
                 }
             }
             catch (Exception ex)
@@ -127,6 +59,84 @@ namespace PesonalFilesOfStudents.Core
             }
 
             return students;
+        }
+
+        public static List<Parent> TakeParents()
+        {
+            List<Parent> parents = new List<Parent>();
+
+            SqlConnection con = new SqlConnection(connectionString);
+
+            try
+            {
+                con.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [dbo].[Parent]");
+
+                command.Connection = con;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    parents.Add(new Parent
+                    {
+                        StudentId = (int) reader["StudentID"],
+                        ParentLastName = reader["LastName"].ToString(),
+                        ParentFirstName = reader["FirstName"].ToString(),
+                        ParentMiddleName = reader["MiddleName"].ToString(),
+                        ParentPhone = (int) reader["Phone"]
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return parents;
+        }
+
+        public static List<Education> TakeEducations()
+        {
+            List<Education> educations = new List<Education>();
+
+            SqlConnection con = new SqlConnection(connectionString);
+
+            try
+            {
+                con.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [dbo].[DocumentsOnEducation]");
+
+                command.Connection = con;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    educations.Add(new Education
+                    {
+                        StudentID = (int) reader["StudentID"],
+                        EducationFile = reader["File"].ToString(),
+                        EducationDateOfEnd = DateTime.Parse(reader["DateOfEnd"].ToString())
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return educations;
         }
 
     }

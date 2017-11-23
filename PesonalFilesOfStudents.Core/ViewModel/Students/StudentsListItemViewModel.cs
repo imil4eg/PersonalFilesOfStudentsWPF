@@ -111,11 +111,16 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// The passports issued date
         /// </summary>
-        public string PassportIssuedDate { get; set; }
+        public DateTime PassportIssuedDate { get; set; }
 
         #endregion
 
         #region Parent
+
+        /// <summary>
+        /// List to hold parents
+        /// </summary>
+        List<Parent> parents = new List<Parent>();
 
         /// <summary>
         /// The parents last name
@@ -140,6 +145,11 @@ namespace PesonalFilesOfStudents.Core
         #endregion
 
         #region Education
+
+        /// <summary>
+        /// The list to hold educations of student
+        /// </summary>
+        List<Education> educations = new List<Education>();
 
         /// <summary>
         /// The file of education
@@ -224,7 +234,9 @@ namespace PesonalFilesOfStudents.Core
                 PassportNumber = PassportNumber,
                 PassportSeries = PassportSeries,
                 PassportIssuedBy = PassportIssuedBy,
-                PassportIssuedDate = PassportIssuedDate
+                PassportIssuedDate = PassportIssuedDate,
+                InsuranceNumber = InsuranceNumber,
+                InsuranceCompany = InsuranceCompany
             };
 
             IoC.Application.GoToPage(ApplicationPage.Students, new StudentsInformationViewModel

@@ -38,6 +38,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             
@@ -126,13 +127,24 @@
                        Foreground="{StaticResource WordLightOrangeBrush}"
             />
 
-            <StackPanel Grid.Column="4" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
+            <StackPanel Grid.Column="4"
+                        Grid.Row="2"
+                        local:TextEntryWidthMatcherProperty.Value="True"
+                        Margin="15 0 0 0"
+                        >
 
-                <local:TextEntryControl DataContext="{Binding ParentFirstName}"/>
-                <local:TextEntryControl DataContext="{Binding ParentLastName}"/>
-                <local:TextEntryControl DataContext="{Binding ParentMiddleName}"
+                <local:TextEntryControl DataContext="{Binding ParentFirstName1}"/>
+                <local:TextEntryControl DataContext="{Binding ParentLastName1}"/>
+                <local:TextEntryControl DataContext="{Binding ParentMiddleName1}"
                 />
-                <local:TextEntryControl DataContext="{Binding ParentPhone}"
+                <local:TextEntryControl DataContext="{Binding ParentPhone1}"
+                />
+
+                <local:TextEntryControl DataContext="{Binding ParentFirstName2}" Margin="0 15 0 0"/>
+                <local:TextEntryControl DataContext="{Binding ParentLastName2}"/>
+                <local:TextEntryControl DataContext="{Binding ParentMiddleName2}"
+                />
+                <local:TextEntryControl DataContext="{Binding ParentPhone2}"
                 />
 
             </StackPanel>
@@ -164,8 +176,12 @@
 
             <StackPanel Grid.Column="6" Grid.Row="2" local:TextEntryWidthMatcherProperty.Value="True" Margin="15 0 0 0">
 
-                <local:TextEntryControl DataContext="{Binding EducationFile}"/>
-                <local:TextEntryControl DataContext="{Binding EducationEndDate}" Grid.Row="1"/>
+                <local:TextEntryControl DataContext="{Binding EducationFile1}"/>
+                <local:TextEntryControl DataContext="{Binding EducationEndDate1}" Grid.Row="1"/>
+                <local:TextEntryControl DataContext="{Binding EducationFile2}" Margin="0 15"/>
+                <local:TextEntryControl DataContext="{Binding EducationEndDate2}" Grid.Row="1"/>
+                <local:TextEntryControl DataContext="{Binding EducationFile3}" Margin="0 15"/>
+                <local:TextEntryControl DataContext="{Binding EducationEndDate3}" Grid.Row="1"/>
 
             </StackPanel>
 

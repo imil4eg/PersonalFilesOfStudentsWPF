@@ -2,12 +2,12 @@
 
 namespace PesonalFilesOfStudents.Core
 {
-    public partial class Student
+    public class Education
     {
-        ///// <summary>
-        ///// The students id , which file is
-        ///// </summary>
-        //public int StudentID { get; set; }
+        /// <summary>
+        /// The students id , which file is
+        /// </summary>
+        public int StudentID { get; set; }
 
         /// <summary>
         /// The file of education
