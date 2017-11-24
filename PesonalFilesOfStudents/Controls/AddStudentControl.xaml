@@ -145,7 +145,7 @@
                         <local:TextEntryControl DataContext="{Binding InsurencePolicyCompany}"/>
 
                         <!-- Document On Education information header -->
-                        <TextBlock Text="Document On Education"
+                        <TextBlock Text="Documents On Education"
                                    FontFamily="{StaticResource LatoBold}"
                                    FontSize="{StaticResource FontSizeLarge}"
                                    Foreground="{StaticResource WordLightOrangeBrush}"
@@ -154,11 +154,23 @@
                         <!-- header underline -->
                         <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
 
-                        <local:TextEntryControl DataContext="{Binding EducationFile}"/>
-                        <local:TextEntryControl DataContext="{Binding EducationEndDate}"/>
+                        <local:TextEntryControl DataContext="{Binding EducationFile1}"/>
+                        <local:TextEntryControl DataContext="{Binding EducationEndDate1}"/>
+
+                        <!-- underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <local:TextEntryControl DataContext="{Binding EducationFile2}"/>
+                        <local:TextEntryControl DataContext="{Binding EducationEndDate2}"/>
+
+                        <!-- underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <local:TextEntryControl DataContext="{Binding EducationFile3}"/>
+                        <local:TextEntryControl DataContext="{Binding EducationEndDate3}"/>
 
                         <!-- Parent information header -->
-                        <TextBlock Text="Parent"
+                        <TextBlock Text="First Parent"
                                    FontFamily="{StaticResource LatoBold}"
                                    FontSize="{StaticResource FontSizeLarge}"
                                    Foreground="{StaticResource WordLightOrangeBrush}"
@@ -172,6 +184,29 @@
                         <local:TextEntryControl DataContext="{Binding ParentMiddleName}"/>
                         <local:TextEntryControl DataContext="{Binding ParentLastName}"/>
                         <local:TextEntryControl DataContext="{Binding ParentPhone}"/>
+
+                        <!-- Parent information header -->
+                        <TextBlock Text="Second Parent"
+                                   FontFamily="{StaticResource LatoBold}"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Foreground="{StaticResource WordLightOrangeBrush}"
+                        />
+
+                        <!-- header underline -->
+                        <Border Height="1" Background="{StaticResource WordLightOrangeBrush}"/>
+
+                        <!-- Entry boxes -->
+                        <local:TextEntryControl DataContext="{Binding SecondParentFirstName}"/>
+                        <local:TextEntryControl DataContext="{Binding SecondParentMiddleName}"/>
+                        <local:TextEntryControl DataContext="{Binding SecondParentLastName}"/>
+                        <local:TextEntryControl DataContext="{Binding SecondParentPhone}"/>
+
+                        <Button Padding="4"
+                                Width="70"
+                                Content="Save"
+                                HorizontalAlignment="Right"
+                                Command="{Binding SaveCommand}"
+                        />
 
 
                     </StackPanel>

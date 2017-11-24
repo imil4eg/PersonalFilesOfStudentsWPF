@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using static System.Net.Mime.MediaTypeNames;
+using System.Windows;
 
 namespace PesonalFilesOfStudents.Core
 {
@@ -118,42 +119,42 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// The current students parents last name
         /// </summary>
-        public TextEntryViewModel ParentLastName1 { get; set; }
+        public TextEntryViewModel ParentLastName { get; set; }
 
         /// <summary>
         /// The current students parents first name
         /// </summary>
-        public TextEntryViewModel ParentFirstName1 { get; set; }
+        public TextEntryViewModel ParentFirstName { get; set; }
 
         /// <summary>
         /// The current students parents middle name
         /// </summary>
-        public TextEntryViewModel ParentMiddleName1 { get; set; }
+        public TextEntryViewModel ParentMiddleName { get; set; }
 
         /// <summary>
         /// The current students parents phone number
         /// </summary>
-        public TextEntryViewModel ParentPhone1 { get; set; }
+        public TextEntryViewModel ParentPhone { get; set; }
 
         /// <summary>
         /// The current students parents last name
         /// </summary>
-        public TextEntryViewModel ParentLastName2 { get; set; }
+        public TextEntryViewModel SecondParentLastName { get; set; }
 
         /// <summary>
         /// The current students parents first name
         /// </summary>
-        public TextEntryViewModel ParentFirstName2 { get; set; }
+        public TextEntryViewModel SecondParentFirstName { get; set; }
 
         /// <summary>
         /// The current students parents middle name
         /// </summary>
-        public TextEntryViewModel ParentMiddleName2 { get; set; }
+        public TextEntryViewModel SecondParentMiddleName { get; set; }
 
         /// <summary>
         /// The current students parents phone number
         /// </summary>
-        public TextEntryViewModel ParentPhone2 { get; set; }
+        public TextEntryViewModel SecondParentPhone { get; set; }
 
         #endregion
 
@@ -233,10 +234,16 @@ namespace PesonalFilesOfStudents.Core
         private List<Education> _educations = SqlDbConnect.TakeEducations();
         private List<Parent> teParents = new List<Parent>();
         private List<Education> tempEducations = new List<Education>();
+        private List<TextEntryViewModel> _textEntrys = new List<TextEntryViewModel>();
 
         #endregion
 
         #region Public Commands
+
+        /// <summary>
+        /// The command for then the user need to save values
+        /// </summary>
+        public ICommand SaveChangedCommand { get; set; }
 
         /// <summary>
         /// The command for when the attachment button is clicked
@@ -260,6 +267,7 @@ namespace PesonalFilesOfStudents.Core
             // Create commands
             AttachmentButtonCommand = new RelayCommand(AttachmentButton);
             PopupClickawayCommand = new RelayCommand(PopupClickaway);
+            SaveChangedCommand = new RelayCommand(Save);
 
             // Make a default menu
             AttachmentMenu = new StudentInformationAttachmentPopupMenuViewModel();
@@ -271,18 +279,18 @@ namespace PesonalFilesOfStudents.Core
 
             // Student textboxes
             StudentID = new TextEntryViewModel { Label = "ID", OriginalText = StudentInformation.StudentID.ToString() };
-            StudentFirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = StudentInformation.StudentFirstName };
-            StudentMiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = StudentInformation.StudentMiddleName };
-            StudentLastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = StudentInformation.StudentLastName };
-            StudentBirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = StudentInformation.StudentBirthDate.ToString("dd/M/yyyy") };
-            StudentRegistration = new TextEntryDesignModel { Label = "Registration", OriginalText = StudentInformation.StudentRegistration };
-            StudentCourse = new TextEntryDesignModel { Label = "Course", OriginalText = StudentInformation.StudentCourse.ToString() };
-            StudentGroup = new TextEntryDesignModel { Label = "Group", OriginalText = StudentInformation.StudentGroup.ToString() };
-            StudentFaculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = StudentInformation.StudentFaculty.ToString() };
-            StudentGender = new TextEntryDesignModel { Label = "Gender", OriginalText = StudentInformation.StudentGender };
+            StudentFirstName = new TextEntryViewModel { Label = "First Name", OriginalText = StudentInformation.StudentFirstName };
+            StudentMiddleName = new TextEntryViewModel { Label = "Middle Name", OriginalText = StudentInformation.StudentMiddleName };
+            StudentLastName = new TextEntryViewModel { Label = "Last Name", OriginalText = StudentInformation.StudentLastName };
+            StudentBirthDate = new TextEntryViewModel { Label = "Birth date", OriginalText = StudentInformation.StudentBirthDate.ToString("dd/M/yyyy") };
+            StudentRegistration = new TextEntryViewModel { Label = "Registration", OriginalText = StudentInformation.StudentRegistration };
+            StudentCourse = new TextEntryViewModel { Label = "Course", OriginalText = StudentInformation.StudentCourse.ToString() };
+            StudentGroup = new TextEntryViewModel { Label = "Group", OriginalText = StudentInformation.StudentGroup.ToString() };
+            StudentFaculty = new TextEntryViewModel { Label = "Faculty", OriginalText = StudentInformation.StudentFaculty.ToString() };
+            StudentGender = new TextEntryViewModel { Label = "Gender", OriginalText = StudentInformation.StudentGender };
             StudentINN = new TextEntryViewModel { Label = "INN", OriginalText = StudentInformation.StudentINN.ToString() };
             StudentSNILS = new TextEntryViewModel { Label = "SNILS", OriginalText = StudentInformation.StudentSNILS.ToString() };
-            StudentProfilePhoto = new TextEntryDesignModel { Label = "Profile Photo", OriginalText = "lico.png" };
+            StudentProfilePhoto = new TextEntryViewModel { Label = "Profile Photo", OriginalText = "lico.png" };
 
             //// Passport textboxes
             PassportNumber = new TextEntryViewModel { Label = "Number", OriginalText = StudentInformation.PassportNumber.ToString() };
@@ -291,14 +299,14 @@ namespace PesonalFilesOfStudents.Core
             PassportIssuedDate = new TextEntryViewModel { Label = "Issued Date", OriginalText = StudentInformation.PassportIssuedDate.ToString("dd/M/yyyy") };
 
             // Parent textboxes
-            ParentLastName1 = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentLastName : " "};
-            ParentFirstName1 = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentFirstName : " "};
-            ParentMiddleName1 = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentMiddleName : " "};
-            ParentPhone1 = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 0 ? teParents[0].ParentPhone.ToString() : " "};
-            ParentLastName2 = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentLastName : " "};
-            ParentFirstName2 = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentFirstName : " "};
-            ParentMiddleName2 = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentMiddleName : " "};
-            ParentPhone2 = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 1 ? teParents[1].ParentPhone.ToString() : " "};
+            ParentLastName = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentLastName : " "};
+            ParentFirstName = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentFirstName : " "};
+            ParentMiddleName = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 0 ? teParents[0].ParentMiddleName : " "};
+            ParentPhone = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 0 ? teParents[0].ParentPhone.ToString() : " "};
+            SecondParentLastName = new TextEntryViewModel {Label = "Last Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentLastName : " "};
+            SecondParentFirstName = new TextEntryViewModel {Label = "First Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentFirstName : " "};
+            SecondParentMiddleName = new TextEntryViewModel {Label = "Middle Name", OriginalText = teParents.Count > 1 ? teParents[1].ParentMiddleName : " "};
+            SecondParentPhone = new TextEntryViewModel {Label = "Phone", OriginalText = teParents.Count > 1 ? teParents[1].ParentPhone.ToString() : " "};
 
 
             //// Insurance Policy textboxes
@@ -336,8 +344,192 @@ namespace PesonalFilesOfStudents.Core
             AttachmentMenuVisible ^= true;
         }
 
+        /// <summary>
+        /// When the save button is clicked, saves corrected information
+        /// </summary>
+        public void Save()
+        {
+            //Check if this entry box has any value
+            CheckIsValuesNull(StudentRegistration);
+
+            CheckIsValuesNull(ParentFirstName, ParentLastName, ParentPhone);
+            CheckIsValuesNull(SecondParentFirstName, SecondParentLastName, SecondParentPhone);
+            CheckIsValuesNull(EducationFile2, EducationEndDate2);
+
+            CheckIsValuesNull(EducationFile3, EducationEndDate3);
+
+            foreach (var item in _textEntrys)
+            {
+                // Checks if some textbox is empty and show the message and end this method
+                if (!string.IsNullOrWhiteSpace(item.OriginalText)) continue;
+                MessageBox.Show(string.Format("The box {0} can't be empty", item.Label), "Error");
+                return;
+
+
+            }
+
+            // Clear list
+            _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            // Paste all values that must be string into list
+            _textEntrys.AddRange(new[]
+            {
+            StudentFirstName,StudentLastName,StudentMiddleName,StudentGender,
+            PassportIssuedBy
+        });
+
+            //Check if this entry box has any value
+            CheckIsValuesNull(ParentFirstName, ParentLastName);
+
+            CheckIsValuesNull(SecondParentFirstName, SecondParentLastName);
+
+            // Each element of list...
+            foreach (var item in _textEntrys)
+            {
+                // Check if this item is null
+                if (!string.IsNullOrWhiteSpace(item.OriginalText))
+                {
+                    // Check every element on having a letter in it
+                    foreach (var c in item.OriginalText)
+                    {
+                        // if it have a letter , Show messagebox with error and end method
+                        if (char.IsNumber(c))
+                        {
+                            MessageBox.Show(string.Format("The enter box {0} must contain only letters", item.Label),
+                                "Error");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Clear list
+            _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            _textEntrys.AddRange(new[]
+            {
+            StudentCourse,StudentFaculty,StudentINN,StudentSNILS,
+            PassportNumber,PassportSeries,InsurencePolicyNumber
+        });
+
+            int check = 0;
+
+            // Each element of list...
+            foreach (var item in _textEntrys)
+            {
+                // trying parse value to int , if true show message box with error and end this method
+                if (!int.TryParse(item.OriginalText, out check))
+                {
+                    MessageBox.Show(string.Format("The enter box {0} must contain only nums", item.Label), "Error");
+                    return;
+                }
+            }
+
+            // Clear list
+            _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            //Check if this entry box has any value
+            CheckIsValuesNull(StudentBirthDate);
+
+            CheckIsValuesNull(EducationEndDate1);
+            CheckIsValuesNull(EducationEndDate2);
+            CheckIsValuesNull(EducationEndDate3);
+
+            DateTime checkTime;
+
+            // Each element of list...
+            foreach (var item in _textEntrys)
+            {
+                // trying parse value to DateTime , if true show message box with error and end this method
+                if (!DateTime.TryParse(item.OriginalText, out checkTime))
+                {
+                    MessageBox.Show(string.Format("The date in {0} must be like dd-mm-yyyy", item.Label), "Error");
+                    return;
+                }
+            }
+
+            // Order is important
+            SqlDbConnect.UpdateInfromation(new List<TextEntryViewModel>
+            {
+                StudentID,
+                StudentFirstName,
+                StudentLastName,
+                StudentMiddleName,
+                StudentFaculty,
+                StudentCourse,
+                StudentBirthDate,
+                StudentGender,
+                StudentGroup,
+                StudentINN,
+                StudentSNILS,
+                StudentRegistration,
+                PassportNumber,
+                PassportSeries,
+                PassportIssuedBy,
+                PassportIssuedDate,
+                InsurencePolicyNumber,
+                InsurencePolicyCompany
+            }, new List<TextEntryViewModel>
+            {
+                ParentLastName,
+                ParentFirstName,
+                ParentMiddleName,
+                ParentPhone,
+                SecondParentLastName,
+                SecondParentFirstName,
+                SecondParentMiddleName,
+                SecondParentPhone
+            }, new List<TextEntryViewModel>
+            {
+                EducationFile1,
+                EducationEndDate1,
+                EducationFile2,
+                EducationEndDate2,
+                EducationFile3,
+                EducationEndDate3
+            });
+        }
+
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// This method check if someof entry boxes has value
+        /// </summary>
+        /// <param name="firstTextEntry"></param>
+        /// <param name="secondTextEntry"></param>
+        /// <param name="thirdTextEntry"></param>
+        private void CheckIsValuesNull(params TextEntryViewModel[] textEntrys)
+        {
+            if (textEntrys.Length == 1 && !string.IsNullOrWhiteSpace(textEntrys[0].OriginalText))
+            {
+                _textEntrys.Add(textEntrys[0]);
+            }
+            if (textEntrys.Length == 2 &&
+                (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) || !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText)))
+            {
+                _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1] });
+            }
+
+            if (textEntrys.Length == 3 &&
+                (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) ||
+                 !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText) ||
+                 !string.IsNullOrWhiteSpace(textEntrys[2].OriginalText)))
+            {
+                _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1], textEntrys[2] });
+            }
+
+            //if (!string.IsNullOrWhiteSpace(firstTextEntry.OriginalText) ||
+            //    !string.IsNullOrWhiteSpace(secondTextEntry.OriginalText ?? " ") ||
+            //    !string.IsNullOrWhiteSpace(thirdTextEntry.OriginalText ?? " "))
+            //{
+            //    // if has add into entry boxes into list
+            //    _textEntrys.AddRange(new[] { firstTextEntry, secondTextEntry, thirdTextEntry });
+            //}
+        }
+
+        #endregion
     }
 }

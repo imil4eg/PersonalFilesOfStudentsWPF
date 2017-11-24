@@ -52,8 +52,8 @@
             <!-- Buttons -->
             <Button Grid.Column="1"
                     Style="{StaticResource IconGrowButton}"
-                    Content="{StaticResource FontAwesomeEditIcon}"
-                    Foreground="{StaticResource WordBlueBrush}"
+                    Content="{StaticResource FontAwesomeSaveIcon}"
+                    Foreground="{StaticResource WordGreenBrush}"
             />
 
             <Button Grid.Column="2"
