@@ -2,8 +2,16 @@
 
 namespace PesonalFilesOfStudents.Core
 {
+    /// <summary>
+    /// Class that holds information about education
+    /// </summary>
     public class Education
     {
+        /// <summary>
+        /// The current education id
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// The students id , which file is
         /// </summary>

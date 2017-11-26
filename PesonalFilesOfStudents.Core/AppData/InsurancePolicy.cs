@@ -1,5 +1,8 @@
 ﻿namespace PesonalFilesOfStudents.Core
 {
+    /// <summary>
+    /// Class that hold information about students insurance
+    /// </summary>
     public partial class Student
     {
         ///// <summary>

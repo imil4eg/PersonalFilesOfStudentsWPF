@@ -349,128 +349,26 @@ namespace PesonalFilesOfStudents.Core
         /// </summary>
         public void Save()
         {
-            //Check if this entry box has any value
-            CheckIsValuesNull(StudentRegistration);
-
-            CheckIsValuesNull(ParentFirstName, ParentLastName, ParentPhone);
-            CheckIsValuesNull(SecondParentFirstName, SecondParentLastName, SecondParentPhone);
-            CheckIsValuesNull(EducationFile2, EducationEndDate2);
-
-            CheckIsValuesNull(EducationFile3, EducationEndDate3);
-
-            foreach (var item in _textEntrys)
-            {
-                // Checks if some textbox is empty and show the message and end this method
-                if (!string.IsNullOrWhiteSpace(item.OriginalText)) continue;
-                MessageBox.Show(string.Format("The box {0} can't be empty", item.Label), "Error");
-                return;
-
-
-            }
-
-            // Clear list
-            _textEntrys.RemoveRange(0, _textEntrys.Count);
-
-            // Paste all values that must be string into list
-            _textEntrys.AddRange(new[]
-            {
-            StudentFirstName,StudentLastName,StudentMiddleName,StudentGender,
-            PassportIssuedBy
-        });
-
-            //Check if this entry box has any value
-            CheckIsValuesNull(ParentFirstName, ParentLastName);
-
-            CheckIsValuesNull(SecondParentFirstName, SecondParentLastName);
-
-            // Each element of list...
-            foreach (var item in _textEntrys)
-            {
-                // Check if this item is null
-                if (!string.IsNullOrWhiteSpace(item.OriginalText))
-                {
-                    // Check every element on having a letter in it
-                    foreach (var c in item.OriginalText)
-                    {
-                        // if it have a letter , Show messagebox with error and end method
-                        if (char.IsNumber(c))
-                        {
-                            MessageBox.Show(string.Format("The enter box {0} must contain only letters", item.Label),
-                                "Error");
-                            return;
-                        }
-                    }
-                }
-            }
-
-            // Clear list
-            _textEntrys.RemoveRange(0, _textEntrys.Count);
-
-            _textEntrys.AddRange(new[]
-            {
-            StudentCourse,StudentFaculty,StudentINN,StudentSNILS,
-            PassportNumber,PassportSeries,InsurencePolicyNumber
-        });
-
-            int check = 0;
-
-            // Each element of list...
-            foreach (var item in _textEntrys)
-            {
-                // trying parse value to int , if true show message box with error and end this method
-                if (!int.TryParse(item.OriginalText, out check))
-                {
-                    MessageBox.Show(string.Format("The enter box {0} must contain only nums", item.Label), "Error");
-                    return;
-                }
-            }
-
-            // Clear list
-            _textEntrys.RemoveRange(0, _textEntrys.Count);
-
-            //Check if this entry box has any value
-            CheckIsValuesNull(StudentBirthDate);
-
-            CheckIsValuesNull(EducationEndDate1);
-            CheckIsValuesNull(EducationEndDate2);
-            CheckIsValuesNull(EducationEndDate3);
-
-            DateTime checkTime;
-
-            // Each element of list...
-            foreach (var item in _textEntrys)
-            {
-                // trying parse value to DateTime , if true show message box with error and end this method
-                if (!DateTime.TryParse(item.OriginalText, out checkTime))
-                {
-                    MessageBox.Show(string.Format("The date in {0} must be like dd-mm-yyyy", item.Label), "Error");
-                    return;
-                }
-            }
-
-            // Order is important
-            SqlDbConnect.UpdateInfromation(new List<TextEntryViewModel>
+            // Order is important 
+            if (EntryBoxesValueCheck.Check(new List<TextEntryViewModel>
             {
                 StudentID,
                 StudentFirstName,
-                StudentLastName,
                 StudentMiddleName,
-                StudentFaculty,
-                StudentCourse,
+                StudentLastName,
                 StudentBirthDate,
-                StudentGender,
+                StudentRegistration,
+                StudentCourse,
                 StudentGroup,
+                StudentFaculty,
+                StudentGender,
                 StudentINN,
                 StudentSNILS,
-                StudentRegistration,
+                StudentProfilePhoto,
                 PassportNumber,
                 PassportSeries,
                 PassportIssuedBy,
                 PassportIssuedDate,
-                InsurencePolicyNumber,
-                InsurencePolicyCompany
-            }, new List<TextEntryViewModel>
-            {
                 ParentLastName,
                 ParentFirstName,
                 ParentMiddleName,
@@ -478,16 +376,205 @@ namespace PesonalFilesOfStudents.Core
                 SecondParentLastName,
                 SecondParentFirstName,
                 SecondParentMiddleName,
-                SecondParentPhone
-            }, new List<TextEntryViewModel>
-            {
+                SecondParentPhone,
+                InsurencePolicyNumber,
+                InsurencePolicyCompany,
                 EducationFile1,
                 EducationEndDate1,
                 EducationFile2,
                 EducationEndDate2,
                 EducationFile3,
                 EducationEndDate3
-            });
+            }))
+            {
+                // Order is important
+                SqlDbConnect.UpdateInfromation(new List<TextEntryViewModel>
+                {
+                    // Student table info
+                    StudentID,
+                    StudentFirstName,
+                    StudentLastName,
+                    StudentMiddleName,
+                    StudentFaculty,
+                    StudentCourse,
+                    StudentBirthDate,
+                    StudentGender,
+                    StudentGroup,
+                    StudentINN,
+                    StudentSNILS,
+                    StudentRegistration,
+                    PassportNumber,
+                    PassportSeries,
+                    PassportIssuedBy,
+                    PassportIssuedDate,
+                    InsurencePolicyNumber,
+                    InsurencePolicyCompany
+                }, new List<TextEntryViewModel>
+                {
+                    // Parent table info
+                    ParentLastName,
+                    ParentFirstName,
+                    ParentMiddleName,
+                    ParentPhone,
+                    SecondParentLastName,
+                    SecondParentFirstName,
+                    SecondParentMiddleName,
+                    SecondParentPhone
+                }, new List<TextEntryViewModel>
+                {
+                    // Education table info
+                    EducationFile1,
+                    EducationEndDate1,
+                    EducationFile2,
+                    EducationEndDate2,
+                    EducationFile3,
+                    EducationEndDate3
+                });
+            }
+            else
+            {
+                MessageBox.Show("Information didn't updated", "Error");
+            }
+
+            //    //Check if this entry box has any value
+            //    CheckIsValuesNull(StudentRegistration);
+
+            //    CheckIsValuesNull(ParentFirstName, ParentLastName, ParentPhone);
+            //    CheckIsValuesNull(SecondParentFirstName, SecondParentLastName, SecondParentPhone);
+            //    CheckIsValuesNull(EducationFile2, EducationEndDate2);
+
+            //    CheckIsValuesNull(EducationFile3, EducationEndDate3);
+
+            //    foreach (var item in _textEntrys)
+            //    {
+            //        // Checks if some textbox is empty and show the message and end this method
+            //        if (!string.IsNullOrWhiteSpace(item.OriginalText)) continue;
+            //        MessageBox.Show(string.Format("The box {0} can't be empty", item.Label), "Error");
+            //        return;
+
+
+            //    }
+
+            //    // Clear list
+            //    _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            //    // Paste all values that must be string into list
+            //    _textEntrys.AddRange(new[]
+            //    {
+            //    StudentFirstName,StudentLastName,StudentMiddleName,StudentGender,
+            //    PassportIssuedBy
+            //});
+
+            //    //Check if this entry box has any value
+            //    CheckIsValuesNull(ParentFirstName, ParentLastName);
+
+            //    CheckIsValuesNull(SecondParentFirstName, SecondParentLastName);
+
+            //    // Each element of list...
+            //    foreach (var item in _textEntrys)
+            //    {
+            //        // Check if this item is null
+            //        if (!string.IsNullOrWhiteSpace(item.OriginalText))
+            //        {
+            //            // Check every element on having a letter in it
+            //            foreach (var c in item.OriginalText)
+            //            {
+            //                // if it have a letter , Show messagebox with error and end method
+            //                if (char.IsNumber(c))
+            //                {
+            //                    MessageBox.Show(string.Format("The enter box {0} must contain only letters", item.Label),
+            //                        "Error");
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    // Clear list
+            //    _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            //    _textEntrys.AddRange(new[]
+            //    {
+            //    StudentCourse,StudentFaculty,StudentINN,StudentSNILS,
+            //    PassportNumber,PassportSeries,InsurencePolicyNumber
+            //});
+
+            //    int check = 0;
+
+            //    // Each element of list...
+            //    foreach (var item in _textEntrys)
+            //    {
+            //        // trying parse value to int , if true show message box with error and end this method
+            //        if (!int.TryParse(item.OriginalText, out check))
+            //        {
+            //            MessageBox.Show(string.Format("The enter box {0} must contain only nums", item.Label), "Error");
+            //            return;
+            //        }
+            //    }
+
+            //    // Clear list
+            //    _textEntrys.RemoveRange(0, _textEntrys.Count);
+
+            //    //Check if this entry box has any value
+            //    CheckIsValuesNull(StudentBirthDate);
+
+            //    CheckIsValuesNull(EducationEndDate1);
+            //    CheckIsValuesNull(EducationEndDate2);
+            //    CheckIsValuesNull(EducationEndDate3);
+
+            //    DateTime checkTime;
+
+            //    // Each element of list...
+            //    foreach (var item in _textEntrys)
+            //    {
+            //        // trying parse value to DateTime , if true show message box with error and end this method
+            //        if (!DateTime.TryParse(item.OriginalText, out checkTime))
+            //        {
+            //            MessageBox.Show(string.Format("The date in {0} must be like dd-mm-yyyy", item.Label), "Error");
+            //            return;
+            //        }
+            //    }
+
+            //    // Order is important
+            //    SqlDbConnect.UpdateInfromation(new List<TextEntryViewModel>
+            //    {
+            //        StudentID,
+            //        StudentFirstName,
+            //        StudentLastName,
+            //        StudentMiddleName,
+            //        StudentFaculty,
+            //        StudentCourse,
+            //        StudentBirthDate,
+            //        StudentGender,
+            //        StudentGroup,
+            //        StudentINN,
+            //        StudentSNILS,
+            //        StudentRegistration,
+            //        PassportNumber,
+            //        PassportSeries,
+            //        PassportIssuedBy,
+            //        PassportIssuedDate,
+            //        InsurencePolicyNumber,
+            //        InsurencePolicyCompany
+            //    }, new List<TextEntryViewModel>
+            //    {
+            //        ParentLastName,
+            //        ParentFirstName,
+            //        ParentMiddleName,
+            //        ParentPhone,
+            //        SecondParentLastName,
+            //        SecondParentFirstName,
+            //        SecondParentMiddleName,
+            //        SecondParentPhone
+            //    }, new List<TextEntryViewModel>
+            //    {
+            //        EducationFile1,
+            //        EducationEndDate1,
+            //        EducationFile2,
+            //        EducationEndDate2,
+            //        EducationFile3,
+            //        EducationEndDate3
+            //    });
         }
 
 
@@ -495,40 +582,40 @@ namespace PesonalFilesOfStudents.Core
 
         #region Methods
 
-        /// <summary>
-        /// This method check if someof entry boxes has value
-        /// </summary>
-        /// <param name="firstTextEntry"></param>
-        /// <param name="secondTextEntry"></param>
-        /// <param name="thirdTextEntry"></param>
-        private void CheckIsValuesNull(params TextEntryViewModel[] textEntrys)
-        {
-            if (textEntrys.Length == 1 && !string.IsNullOrWhiteSpace(textEntrys[0].OriginalText))
-            {
-                _textEntrys.Add(textEntrys[0]);
-            }
-            if (textEntrys.Length == 2 &&
-                (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) || !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText)))
-            {
-                _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1] });
-            }
+        ///// <summary>
+        ///// This method check if someof entry boxes has value
+        ///// </summary>
+        ///// <param name="firstTextEntry"></param>
+        ///// <param name="secondTextEntry"></param>
+        ///// <param name="thirdTextEntry"></param>
+        //private void CheckIsValuesNull(params TextEntryViewModel[] textEntrys)
+        //{
+        //    if (textEntrys.Length == 1 && !string.IsNullOrWhiteSpace(textEntrys[0].OriginalText))
+        //    {
+        //        _textEntrys.Add(textEntrys[0]);
+        //    }
+        //    if (textEntrys.Length == 2 &&
+        //        (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) || !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText)))
+        //    {
+        //        _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1] });
+        //    }
 
-            if (textEntrys.Length == 3 &&
-                (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) ||
-                 !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText) ||
-                 !string.IsNullOrWhiteSpace(textEntrys[2].OriginalText)))
-            {
-                _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1], textEntrys[2] });
-            }
+        //    if (textEntrys.Length == 3 &&
+        //        (!string.IsNullOrWhiteSpace(textEntrys[0].OriginalText) ||
+        //         !string.IsNullOrWhiteSpace(textEntrys[1].OriginalText) ||
+        //         !string.IsNullOrWhiteSpace(textEntrys[2].OriginalText)))
+        //    {
+        //        _textEntrys.AddRange(new[] { textEntrys[0], textEntrys[1], textEntrys[2] });
+        //    }
 
-            //if (!string.IsNullOrWhiteSpace(firstTextEntry.OriginalText) ||
-            //    !string.IsNullOrWhiteSpace(secondTextEntry.OriginalText ?? " ") ||
-            //    !string.IsNullOrWhiteSpace(thirdTextEntry.OriginalText ?? " "))
-            //{
-            //    // if has add into entry boxes into list
-            //    _textEntrys.AddRange(new[] { firstTextEntry, secondTextEntry, thirdTextEntry });
-            //}
-        }
+        //    //if (!string.IsNullOrWhiteSpace(firstTextEntry.OriginalText) ||
+        //    //    !string.IsNullOrWhiteSpace(secondTextEntry.OriginalText ?? " ") ||
+        //    //    !string.IsNullOrWhiteSpace(thirdTextEntry.OriginalText ?? " "))
+        //    //{
+        //    //    // if has add into entry boxes into list
+        //    //    _textEntrys.AddRange(new[] { firstTextEntry, secondTextEntry, thirdTextEntry });
+        //    //}
+        //}
 
         #endregion
     }

@@ -2,6 +2,9 @@
 
 namespace PesonalFilesOfStudents.Core
 {
+    /// <summary>
+    /// The class that holds information about student
+    /// </summary>
     public partial class Student
     {
         /// <summary>

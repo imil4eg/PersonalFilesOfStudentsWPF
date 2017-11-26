@@ -32,26 +32,6 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Profile photo padding -->
-                                <!--<Border Grid.Column="0" 
-                                        Padding="8 15"
-                                        >
-                                    --><!-- Profile photo background --><!--
-                                    <Border Background="{Binding ProfilePictureRGB, Converter={local:StringRGBToBrushConverter}}"
-                                            Height="40"
-                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                            CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        --><!-- Profile photo initials -->
-                                        <!--<TextBlock Text="{Binding ProfilePicture}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   Foreground="{StaticResource ForegroundLightBrush}"
-                                                   FontSize="{StaticResource FontSizeXLarge}"
-                                                   FontFamily="{StaticResource LatoRegular}"
-                                                        />--><!--
-                                        <Image Source="pack://application:,,,/Images/index.png"/>
-                                    </Border>
-                                </Border>-->
-
                                 <Border Grid.Column="0"
                                         Padding="8 15">
                                     

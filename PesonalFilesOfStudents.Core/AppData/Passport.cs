@@ -2,6 +2,9 @@
 
 namespace PesonalFilesOfStudents.Core
 {
+    /// <summary>
+    /// Class that holds passport information of student
+    /// </summary>
     public partial class Student
     {
         /// <summary>

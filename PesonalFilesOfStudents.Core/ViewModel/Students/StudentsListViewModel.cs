@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PesonalFilesOfStudents.Core
@@ -8,12 +11,25 @@ namespace PesonalFilesOfStudents.Core
     /// </summary>
     public class StudentsListViewModel : BaseViewModel
     {
+        #region Lists
+
+        public ObservableCollection<StudentsListItemViewModel> _items;
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// The students list items for the list
         /// </summary>
-        public List<StudentsListItemViewModel> Items { get; set; }
+        public ObservableCollection<StudentsListItemViewModel> Items
+        {
+            get { return _items; }
+            set { _items = value;
+                OnPropertyChanged(
+                    nameof(Items));
+            }
+        }
 
         #endregion
 
@@ -25,7 +41,6 @@ namespace PesonalFilesOfStudents.Core
         public StudentsListViewModel()
         {
 
-            
         }
 
         #endregion

@@ -241,21 +241,6 @@ namespace PesonalFilesOfStudents.Core
 
             IoC.Application.GoToPage(ApplicationPage.Students, new StudentsInformationViewModel
             {
-                //// TODO : Change nulls to properties values
-
-                //StudentID = new TextEntryViewModel { Label = "ID", OriginalText = ID.ToString()},
-                //StudentFirstName = new TextEntryDesignModel { Label = "First Name", OriginalText = FirstName},
-                //StudentMiddleName = new TextEntryDesignModel { Label = "Middle Name", OriginalText = MiddleName },
-                //StudentLastName = new TextEntryDesignModel { Label = "Last Name", OriginalText = LastName },
-                //StudentBirthDate = new TextEntryDesignModel { Label = "Birth date", OriginalText = BirthDate.ToString() },
-                //StudentRegistration = new TextEntryDesignModel { Label = "Registration", OriginalText = Registration },
-                //StudentCourse = new TextEntryDesignModel { Label = "Course", OriginalText = Course.ToString() },
-                //StudentGroup = new TextEntryDesignModel { Label = "Group", OriginalText = Group.ToString() },
-                //StudentFaculty = new TextEntryDesignModel { Label = "Faculty", OriginalText = Faculty.ToString() },
-                //StudentGender = new TextEntryDesignModel { Label = "Gender", OriginalText = Gender },
-                //StudentINN = new TextEntryViewModel { Label = "INN", OriginalText = "" },
-                //StudentSNILS = new TextEntryViewModel { Label = "SNILS", OriginalText = "" },
-                //StudentProfilePhoto = new TextEntryDesignModel { Label = "Profile Photo", OriginalText = "lico.png" }
         });
         }
 

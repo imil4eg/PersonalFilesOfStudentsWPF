@@ -1,0 +1,1 @@
+﻿INSERT INTO [dbo].[DocumentsOnEducation] (StudentID, [File], DateOfEnd) VALUES (32, 'g43g43', '1993.6.24')

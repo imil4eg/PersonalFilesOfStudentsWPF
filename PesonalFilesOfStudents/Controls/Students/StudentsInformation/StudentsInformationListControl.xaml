@@ -133,18 +133,18 @@
                         Margin="15 0 0 0"
                         >
 
-                <local:TextEntryControl DataContext="{Binding ParentFirstName1}"/>
-                <local:TextEntryControl DataContext="{Binding ParentLastName1}"/>
-                <local:TextEntryControl DataContext="{Binding ParentMiddleName1}"
+                <local:TextEntryControl DataContext="{Binding ParentFirstName}"/>
+                <local:TextEntryControl DataContext="{Binding ParentLastName}"/>
+                <local:TextEntryControl DataContext="{Binding ParentMiddleName}"
                 />
-                <local:TextEntryControl DataContext="{Binding ParentPhone1}"
+                <local:TextEntryControl DataContext="{Binding ParentPhone}"
                 />
 
-                <local:TextEntryControl DataContext="{Binding ParentFirstName2}" Margin="0 15 0 0"/>
-                <local:TextEntryControl DataContext="{Binding ParentLastName2}"/>
-                <local:TextEntryControl DataContext="{Binding ParentMiddleName2}"
+                <local:TextEntryControl DataContext="{Binding SecondParentFirstName}" Margin="0 15 0 0"/>
+                <local:TextEntryControl DataContext="{Binding SecondParentLastName}"/>
+                <local:TextEntryControl DataContext="{Binding SecondParentMiddleName}"
                 />
-                <local:TextEntryControl DataContext="{Binding ParentPhone2}"
+                <local:TextEntryControl DataContext="{Binding SecondParentPhone}"
                 />
 
             </StackPanel>

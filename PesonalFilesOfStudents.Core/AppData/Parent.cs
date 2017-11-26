@@ -1,7 +1,15 @@
 ﻿namespace PesonalFilesOfStudents.Core
 {
+    /// <summary>
+    /// Class that holds information about student parents
+    /// </summary>
     public class Parent
     {
+        /// <summary>
+        /// The current parent id
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// The students id,which parent is
         /// </summary>

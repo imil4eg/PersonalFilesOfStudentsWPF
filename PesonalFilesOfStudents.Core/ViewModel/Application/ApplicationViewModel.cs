@@ -30,13 +30,17 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// True if the side menu should be shown
         /// </summary>
-        public bool SideMenuVisible { get; set; } = false;
+        public bool SideMenuVisible { get; set; }
 
         /// <summary>
         /// True if the add student menu should be shown
         /// </summary>
         public bool AddStudentMenuVisible { get; set; }
 
+        /// <summary>
+        /// True if picture should be shown 
+        /// </summary>
+        public bool PictureControlVisible { get; set; }
 
         #endregion
 
