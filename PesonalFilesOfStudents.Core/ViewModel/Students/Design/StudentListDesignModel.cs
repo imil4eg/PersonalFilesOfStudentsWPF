@@ -14,7 +14,22 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// A single instance of the design model
         /// </summary>
-        public static StudentListDesignModel Instance => new StudentListDesignModel();
+        private static StudentListDesignModel _instance; //=> new StudentListDesignModel();
+
+        #endregion
+
+        #region Propetry
+
+        public static StudentListDesignModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new StudentListDesignModel();
+
+                return _instance;
+            }
+        }
 
         #endregion
 
@@ -23,12 +38,22 @@ namespace PesonalFilesOfStudents.Core
         /// <summary>
         /// Default contructor
         /// </summary>
-        public StudentListDesignModel()
+        private StudentListDesignModel()
         {
             Items = SqlDbConnect.CreateStudentsListViewModel();
-
-
         }
+
+        #endregion
+
+        #region Methods
+
+        //public static StudentListDesignModel Instance()
+        //{
+        //    if(_instance == null)
+        //        return new StudentListDesignModel();
+
+        //    return _instance;
+        //}
 
         #endregion
     }

@@ -439,6 +439,8 @@ namespace PesonalFilesOfStudents.Core
                     EducationFile3,
                     EducationEndDate3
                 });
+
+                StudentListDesignModel.Instance.Items = SqlDbConnect.CreateStudentsListViewModel();
             }
             else
             {
@@ -446,9 +448,53 @@ namespace PesonalFilesOfStudents.Core
             }
         }
 
+        /// <summary>
+        /// Delete Student from data base
+        /// </summary>
         public void Delete()
         {
-            
+            if (SqlDbConnect.DeleteInformation(int.Parse(StudentID.OriginalText)))
+            {
+                MessageBox.Show("Student was successfully deleted", "Great Job!");
+                StudentListDesignModel.Instance.Items = SqlDbConnect.CreateStudentsListViewModel();
+                IoC.Application.GoToPage(ApplicationPage.Students,new StudentsInformationViewModel
+                {
+                    StudentID = null,
+                    EducationEndDate1 = null,
+                    EducationEndDate2 = null,
+                    EducationEndDate3 = null,
+                    StudentFirstName = null,
+                    StudentLastName = null,
+                    StudentBirthDate = null,
+                    StudentCourse = null,
+                    StudentGroup = null,
+                    StudentRegistration = null,
+                    StudentFaculty = null,
+                    StudentSNILS = null,
+                    StudentINN = null,
+                    StudentProfilePhoto = null,
+                    StudentMiddleName = null,
+                    StudentGender = null,
+                    EducationFile1 = null,
+                    EducationFile2 = null,
+                    EducationFile3 = null,
+                    PassportNumber = null,
+                    ParentFirstName = null,
+                    InsurencePolicyCompany = null,
+                    PassportSeries = null,
+                    PassportIssuedDate = null,
+                    PassportIssuedBy = null,
+                    InsurencePolicyNumber = null,
+                    ParentLastName = null,
+                    ParentPhone = null,
+                    ParentMiddleName = null,
+                    SecondParentPhone = null,
+                    SecondParentLastName = null,
+                    SecondParentFirstName = null,
+                    SecondParentMiddleName = null,
+                    
+                });
+            }
         }
 
 

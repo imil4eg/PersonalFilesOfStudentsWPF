@@ -314,6 +314,57 @@ namespace PesonalFilesOfStudents.Core
             return studs;
         }
 
+        /// <summary>
+        /// Delete all information about this student from all tables in data base
+        /// </summary>
+        /// <param name="studentId">Id of current student to delete</param>
+        public static bool DeleteInformation(int studentId)
+        {
+            // Existing parents of this user in data base
+            var existingParents = TakeParents().Where(x => x.StudentId == studentId).ToArray();
+
+            // Existring educations in data base
+            var existringEducations = TakeEducations().Where(x => x.StudentID == studentId).ToArray();
+
+            // Deleting every parent of this user
+            foreach (var item in existingParents)
+            {
+                DeleteParent(item.Id);
+            }
+
+            // Deleting every education of this user
+            foreach (var item in existringEducations)
+            {
+                DeleteEducation(item.Id);
+            }
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("DELETE FROM [dbo].[Students] WHERE StudentID = {0}", studentId);
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+
+                return false;
+            }
+
+            return true;
+        }
+
 
         #endregion
 
@@ -520,6 +571,62 @@ namespace PesonalFilesOfStudents.Core
                         "INSERT INTO [dbo].[DocumentsOnEducation] (StudentID, [File], DateOfEnd) " +
                         "VALUES ({0}, '{1}', '{2}')", id, educations[i].OriginalText,
                         DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"));
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        /// <summary>
+        /// Delete education from data base
+        /// </summary>
+        /// <param name="id">Id of current <see cref="Education"/></param>
+        private static void DeleteEducation(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("DELETE FROM [dbo].[DocumentsOnEducation] WHERE Id = {0}", id);
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        /// <summary>
+        /// Delete parent from data base
+        /// </summary>
+        /// <param name="id">Id of current <see cref="Parent"/></param>
+        private static void DeleteParent(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("DELETE FROM [dbo].[Parent] WHERE Id = {0}", id);
 
                     using (SqlCommand command = new SqlCommand(query))
                     {
