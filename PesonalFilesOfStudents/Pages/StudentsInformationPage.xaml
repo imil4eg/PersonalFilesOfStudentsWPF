@@ -54,12 +54,14 @@
                     Style="{StaticResource IconGrowButton}"
                     Content="{StaticResource FontAwesomeSaveIcon}"
                     Foreground="{StaticResource WordGreenBrush}"
+                    Command="{Binding SaveChangesCommand}"
             />
 
             <Button Grid.Column="2"
                     Style="{StaticResource IconGrowButton}"
                     Content="{StaticResource FontAwesomeDeleteIcon}"
                     Foreground="Red"
+                    Command="{Binding DeleteCommand}"
                     />
 
             <Button Grid.Column="3" Style="{StaticResource IconGrowButton}" 

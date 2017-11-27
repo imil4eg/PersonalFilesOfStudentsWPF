@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace PesonalFilesOfStudents.Core
@@ -9,7 +10,7 @@ namespace PesonalFilesOfStudents.Core
     /// <summary>
     /// A view model for the overview students list 
     /// </summary>
-    public class StudentsListViewModel : BaseViewModel
+    public class StudentsListViewModel : BaseViewModel, INotifyPropertyChanged
     {
         #region Lists
 

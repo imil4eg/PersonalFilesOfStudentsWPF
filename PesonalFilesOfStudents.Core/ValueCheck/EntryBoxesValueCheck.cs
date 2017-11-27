@@ -45,7 +45,7 @@ namespace PesonalFilesOfStudents.Core
             CheckIsValuesNull(_textEntrys[5]);  /*        in one method              */
                                                 /*                                   */
             // Check studentGender              /*                                   */
-            CheckIsValuesNull(_textEntrys[9]);  /*  because of or checking in method */
+            CheckIsValuesNull(_textEntrys[9]);  /*  because of || logic checking in method */
 
             // Check parent values
             CheckIsValuesNull(_textEntrys[18], _textEntrys[17], _textEntrys[20]);
@@ -120,6 +120,17 @@ namespace PesonalFilesOfStudents.Core
                 _textEntrys[13], _textEntrys[14], _textEntrys[25]
             });
 
+            
+            // Check if first parents firstname and lastname isn't null or white space
+            // if not adding first parents phone to list to check it's values
+            if(!string.IsNullOrWhiteSpace(_textEntrys[18].OriginalText) || !string.IsNullOrWhiteSpace(_textEntrys[17].OriginalText))
+                entrysTocheck.Add(_textEntrys[20]);
+
+            // Check if second parents firstname and lastname isn't null or white space
+            // if not adding second parents phone to list to check it's values
+            if (!string.IsNullOrWhiteSpace(_textEntrys[22].OriginalText) || !string.IsNullOrWhiteSpace(_textEntrys[21].OriginalText))
+                entrysTocheck.Add(_textEntrys[24]);
+
             int check = 0;
 
             // Each element of list...
@@ -188,14 +199,6 @@ namespace PesonalFilesOfStudents.Core
             {
                 entrysTocheck.AddRange(new[] { textEntrys[0], textEntrys[1], textEntrys[2] });
             }
-
-            //if (!string.IsNullOrWhiteSpace(firstTextEntry.OriginalText) ||
-            //    !string.IsNullOrWhiteSpace(secondTextEntry.OriginalText ?? " ") ||
-            //    !string.IsNullOrWhiteSpace(thirdTextEntry.OriginalText ?? " "))
-            //{
-            //    // if has add into entry boxes into list
-            //    _textEntrys.AddRange(new[] { firstTextEntry, secondTextEntry, thirdTextEntry });
-            //}
         }
     }
 }

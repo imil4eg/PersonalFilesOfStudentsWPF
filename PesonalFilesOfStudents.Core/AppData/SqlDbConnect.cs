@@ -12,9 +12,21 @@ namespace PesonalFilesOfStudents.Core
     /// </summary>
     public static class SqlDbConnect
     {
+        #region Connection
 
+        /// <summary>
+        /// ConnectiongString to connect to the data base
+        /// </summary>
         public static readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;" + @"AttachDbFilename=C:\Users\zis\Documents\Visual Studio 2015\Projects\PesonalFilesOfStudents\PesonalFilesOfStudents\PersonalFilesOfStudentsDB.mdf;" + "Integrated Security = True;";
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Method that takes all students from data base
+        /// </summary>
+        /// <returns><see cref="ObservableCollection{Student}"/></returns>
         public static ObservableCollection<Student> TakeStudents()
         {
             ObservableCollection<Student> students = new ObservableCollection<Student>();
@@ -37,23 +49,23 @@ namespace PesonalFilesOfStudents.Core
                         {
                             students.Add(new Student
                             {
-                                StudentID = (int) reader["StudentID"],
+                                StudentID = (int)reader["StudentID"],
                                 StudentFirstName = reader["FirstName"].ToString(),
                                 StudentMiddleName = reader["MiddleName"].ToString(),
                                 StudentLastName = reader["LastName"].ToString(),
                                 StudentBirthDate = DateTime.Parse(reader["Birth Date"].ToString()),
-                                StudentCourse = (int) reader["Course"],
-                                StudentFaculty = (int) reader["Faculty"],
+                                StudentCourse = (int)reader["Course"],
+                                StudentFaculty = (int)reader["Faculty"],
                                 StudentGender = reader["Gender"].ToString(),
-                                StudentGroup = (int) reader["Group"],
+                                StudentGroup = (int)reader["Group"],
                                 StudentRegistration = reader["Registration"].ToString(),
-                                StudentINN = (long) reader["INN"],
-                                StudentSNILS = (long) reader["SNILS"],
-                                PassportNumber = (long) reader["PassportNumber"],
-                                PassportSeries = (long) reader["PassportSeries"],
+                                StudentINN = (long)reader["INN"],
+                                StudentSNILS = (long)reader["SNILS"],
+                                PassportNumber = (long)reader["PassportNumber"],
+                                PassportSeries = (long)reader["PassportSeries"],
                                 PassportIssuedBy = reader["PassportIssuedBy"].ToString(),
                                 PassportIssuedDate = DateTime.Parse(reader["PassportIssuedDate"].ToString()),
-                                InsuranceNumber = (long) reader["InsuranceNumber"],
+                                InsuranceNumber = (long)reader["InsuranceNumber"],
                                 InsuranceCompany = reader["InsuranceCompany"].ToString()
                             });
                         }
@@ -68,6 +80,10 @@ namespace PesonalFilesOfStudents.Core
             return students;
         }
 
+        /// <summary>
+        /// Method that takes all parents from data base
+        /// </summary>
+        /// <returns><see cref="ObservableCollection{Parent}"/></returns>
         public static List<Parent> TakeParents()
         {
             List<Parent> parents = new List<Parent>();
@@ -90,12 +106,12 @@ namespace PesonalFilesOfStudents.Core
                         {
                             parents.Add(new Parent
                             {
-                                Id = (int) reader["Id"],
-                                StudentId = (int) reader["StudentID"],
+                                Id = (int)reader["Id"],
+                                StudentId = (int)reader["StudentID"],
                                 ParentLastName = reader["LastName"].ToString(),
                                 ParentFirstName = reader["FirstName"].ToString(),
                                 ParentMiddleName = reader["MiddleName"].ToString(),
-                                ParentPhone = (int) reader["Phone"]
+                                ParentPhone = (int)reader["Phone"]
                             });
                         }
                     }
@@ -109,6 +125,10 @@ namespace PesonalFilesOfStudents.Core
             return parents;
         }
 
+        /// <summary>
+        /// Method that takes all educations from data base
+        /// </summary>
+        /// <returns><see cref="ObservableCollection{Education}"/></returns>
         public static List<Education> TakeEducations()
         {
             List<Education> educations = new List<Education>();
@@ -132,7 +152,7 @@ namespace PesonalFilesOfStudents.Core
                             educations.Add(new Education
                             {
                                 Id = (int)reader["Id"],
-                                StudentID = (int) reader["StudentID"],
+                                StudentID = (int)reader["StudentID"],
                                 EducationFile = reader["File"].ToString(),
                                 EducationDateOfEnd = DateTime.Parse(reader["DateOfEnd"].ToString())
                             });
@@ -148,115 +168,15 @@ namespace PesonalFilesOfStudents.Core
             return educations;
         }
 
-        public static void CreateUpdateEducations(int id, List<TextEntryViewModel> educations)
-        {
-            // Contains the number of entered in entry box Educations
-            int numberOfEnteredEducations = 0;
-
-            // Current parent information id to start from in list
-            int currentEducationsInfromationId = 0;
-
-            // Takes the existing parents in DB with specific id
-            Education[] existingEducations = TakeEducations().Where(x => x.StudentID == id).ToArray();
-
-            // Check if the value in entry box have entered 
-            // if true insrease numberOfEntereParents
-            if (!string.IsNullOrWhiteSpace(educations[0].OriginalText))
-                numberOfEnteredEducations++;
-
-            if (!string.IsNullOrWhiteSpace(educations[2].OriginalText))
-                numberOfEnteredEducations++;
-
-            if (!string.IsNullOrWhiteSpace(educations[4].OriginalText))
-                numberOfEnteredEducations++;
-
-
-            // Cicle for updating all users that exists.
-            // Firing while number of entered parents in textbox is not end or
-            // while number existing parents in database is not end
-            for (int i = existingEducations.Length; numberOfEnteredEducations != 0 && i != 0; currentEducationsInfromationId += 2, i--, numberOfEnteredEducations--)
-            {
-                UpdateEducation(id,educations, currentEducationsInfromationId);
-            }
-
-            // Create line in db for each parent , that isn't existit in db
-            for (; numberOfEnteredEducations != 0 && !string.IsNullOrWhiteSpace(educations[currentEducationsInfromationId].OriginalText); currentEducationsInfromationId += 2, numberOfEnteredEducations--)
-            {
-                CreateEducation(id, educations, currentEducationsInfromationId);
-            }
-        }
-
         /// <summary>
-        /// Updates the values in DocumentsOnEducation table
+        /// Method that creates student and all infrmation about them in db
         /// </summary>
-        /// <param name="id">The id of current education to updated</param>
-        /// <param name="educations">The list of values</param>
-        /// <param name="i">The score that indicated what values we need to use in update</param>
-        /// <returns></returns>
-        private static void UpdateEducation(int id, List<TextEntryViewModel> educations,int i)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection())
-                {
-                    string query = string.Format("UPDATE [dbo].[DocumentsOnEducation] " +
-                                                 "SET [File] = '{0}', DateOfEnd = '{1}' " +
-                                                 "WHERE Id = {2}", educations[i].OriginalText, DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"), int.Parse(educations[i].OriginalText));
-
-                    using (SqlCommand command = new SqlCommand(query))
-                    {
-                        connection.Open();
-
-                        command.Connection = connection;
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
-        /// <summary>
-        /// Creates the values in DocumentsOnEducation table
-        /// </summary>
-        /// <param name="id">The id of current education to updated</param>
-        /// <param name="educations">The list of values</param>
-        /// <param name="i">The score that indicated what values we need to use in update</param>
-        private static void CreateEducation(int id, List<TextEntryViewModel> educations,int i)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = string.Format(
-                        "INSERT INTO [dbo].[DocumentsOnEducation] (StudentID, [File], DateOfEnd) " +
-                        "VALUES ({0}, '{1}', '{2}')", id, educations[i].OriginalText,
-                        DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"));
-
-                    using (SqlCommand command = new SqlCommand(query))
-                    {
-                        connection.Open();
-
-                        command.Connection = connection;
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
-        public static bool CreateStudent(string studentLastName,string studentFirstName,string studentGroup,string studentFaculty,
-            string studentCourse,string inn,string studentSnils,string passportNumber,
-            string passportSeries,string passportIssuedBy,string passportIssuedDate,string insuranceNumber,
-            string insuranceCompany, List<TextEntryViewModel> parents,List<TextEntryViewModel> educations ,
-            string studentGender = null,string studentRegistration = null,string studentBirthDate = null,string studentMiddleName = null)
+        /// <returns><see cref="bool"/>that indicates if method was successfull</returns>
+        public static bool CreateStudent(string studentLastName, string studentFirstName, string studentGroup, string studentFaculty,
+            string studentCourse, string inn, string studentSnils, string passportNumber,
+            string passportSeries, string passportIssuedBy, string passportIssuedDate, string insuranceNumber,
+            string insuranceCompany, List<TextEntryViewModel> parents, List<TextEntryViewModel> educations,
+            string studentGender = null, string studentRegistration = null, string studentBirthDate = null, string studentMiddleName = null)
         {
             studentBirthDate = !string.IsNullOrEmpty(studentBirthDate) ? studentBirthDate : DateTime.Now.ToString();
 
@@ -296,13 +216,20 @@ namespace PesonalFilesOfStudents.Core
 
             int id = TakeStudents().OrderByDescending(x => x.StudentID).FirstOrDefault().StudentID;
 
-            CreateUpdateParents(id,parents);
-            CreateUpdateEducations(id,educations);
+            CreateUpdateParents(id, parents);
+            CreateUpdateEducations(id, educations);
 
             return true;
         }
 
-        public static bool UpdateInfromation(List<TextEntryViewModel> students,List<TextEntryViewModel> parents,List<TextEntryViewModel> educations)
+        /// <summary>
+        /// Method that updates all infromation about student and his parents,educations
+        /// </summary>
+        /// <param name="students"></param>
+        /// <param name="parents"></param>
+        /// <param name="educations"></param>
+        /// <returns><see cref="bool"/>that indicates if method was successfull</returns>
+        public static bool UpdateInfromation(List<TextEntryViewModel> students, List<TextEntryViewModel> parents, List<TextEntryViewModel> educations)
         {
             try
             {
@@ -321,9 +248,9 @@ namespace PesonalFilesOfStudents.Core
                         int.Parse(students[8].OriginalText),
                         students[9].OriginalText, long.Parse(students[10].OriginalText),
                         long.Parse(students[11].OriginalText),
-                        long.Parse(students[12].OriginalText), long.Parse(students[13].OriginalText),
-                        students[14].OriginalText, DateTime.Parse(students[15].OriginalText).ToString("yyyy/M/dd"),
-                        long.Parse(students[16].OriginalText), students[17].OriginalText,
+                        long.Parse(students[13].OriginalText), long.Parse(students[14].OriginalText),
+                        students[15].OriginalText, DateTime.Parse(students[16].OriginalText).ToString("yyyy/M/dd"),
+                        long.Parse(students[17].OriginalText), students[18].OriginalText,
                         int.Parse(students[0].OriginalText));
 
                     using (SqlCommand command = new SqlCommand(query))
@@ -337,6 +264,7 @@ namespace PesonalFilesOfStudents.Core
                 }
 
                 CreateUpdateParents(int.Parse(students[0].OriginalText), parents);
+                CreateUpdateEducations(int.Parse(students[0].OriginalText), educations);
             }
             catch (Exception ex)
             {
@@ -347,101 +275,16 @@ namespace PesonalFilesOfStudents.Core
             return true;
         }
 
-        public static void CreateUpdateParents(int id, List<TextEntryViewModel> parents)
-        { 
-            // Contains the number of entered in entry box parents
-            int numberOfEnteredParents = 0;
-
-            // Current parent information id to start from in list
-            int currentParentsInfoId = 0;
-
-            // Takes the existing parents in DB with specific id
-            Parent[] existingParents = TakeParents().Where(x => x.StudentId == id).ToArray();
-
-            // Check if the value in entry box have entered 
-            // if true insrease numberOfEntereParents
-            if (!string.IsNullOrWhiteSpace(parents[0].OriginalText))
-                numberOfEnteredParents++;
-
-            if (!string.IsNullOrWhiteSpace(parents[4].OriginalText))
-                numberOfEnteredParents++;
-
-
-            // Cicle for updating all users that exists.
-            // Firing while number of entered parents in textbox is not end or
-            // while number existing parents in database is not end
-            for (int i = existingParents.Length; numberOfEnteredParents != 0 && i != 0; currentParentsInfoId += 4,i--,numberOfEnteredParents--)
-            {
-                UpdateParent(parents, currentParentsInfoId);
-            }
-
-            // Create line in db for each parent , that isn't existit in db
-            for (;numberOfEnteredParents != 0 && !string.IsNullOrWhiteSpace(parents[currentParentsInfoId].OriginalText) ; currentParentsInfoId += 4,numberOfEnteredParents--)
-            {
-                CreateParent(id,parents,currentParentsInfoId);
-            }
-        }
-
-        private static void CreateParent(int id, List<TextEntryViewModel> parentsInfo,int currentInfoId)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = string.Format(
-                        "INSERT INTO [dbo].[Parent] (StudentID,LastName, FirstName, MiddleName, Phone) " +
-                        "VALUES ('{0}','{1}','{2}','{3}',{4})", id, parentsInfo[currentInfoId].OriginalText,
-                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText, long.Parse(parentsInfo[currentInfoId + 3].OriginalText));
-
-                    using (SqlCommand command = new SqlCommand(query))
-                    {
-                        connection.Open();
-
-                        command.Connection = connection;
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
-        private static void UpdateParent(List<TextEntryViewModel> parentsInfo, int currentInfoId)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = string.Format("UPDATE [dbo].[Parent] " +
-                                                 "SET LastName = '{0}', FirstName = '{1}', MiddleName = '{2}', Phone = {3} " +
-                                                 "WHERE Id = {4}", parentsInfo[currentInfoId].OriginalText,
-                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText, long.Parse(parentsInfo[currentInfoId + 3].OriginalText), parentsInfo[currentInfoId].OriginalText);
-
-                    using (SqlCommand command = new SqlCommand(query))
-                    {
-                        connection.Open();
-
-                        command.Connection = connection;
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
+        /// <summary>
+        /// Method that creates <see cref="StudentsListItemViewModel"/>
+        /// </summary>
+        /// <returns><see cref="ObservableCollection{StudentListItemViewModel}"/></returns>
         public static ObservableCollection<StudentsListItemViewModel> CreateStudentsListViewModel()
         {
             ObservableCollection<StudentsListItemViewModel> studs =
                 new ObservableCollection<StudentsListItemViewModel>();
 
-            foreach (var stud in SqlDbConnect.TakeStudents())
+            foreach (var stud in TakeStudents())
             {
                 studs.Add(new StudentsListItemViewModel
                 {
@@ -470,6 +313,231 @@ namespace PesonalFilesOfStudents.Core
 
             return studs;
         }
+
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// The method that controls that <see cref="Education"/> is not exiist in db and creates them,
+        /// and if <see cref="Education"/> is exists just updates them
+        /// </summary>
+        /// <param name="id">current students id</param>
+        /// <param name="educations">All <see cref="TextEntryViewModel"/> that hold information about all <see cref="Education"/></param>
+        private static void CreateUpdateEducations(int id, List<TextEntryViewModel> educations)
+        {
+            // Contains the number of entered in entry box Educations
+            int numberOfEnteredEducations = 0;
+
+            // Current parent information id to start from in list
+            int currentEducationsInfromationId = 0;
+
+            // Takes the existing parents in DB with specific id
+            Education[] existingEducations = TakeEducations().Where(x => x.StudentID == id).ToArray();
+
+            // Check if the value in entry box have entered 
+            // if true insrease numberOfEntereParents
+            if (!string.IsNullOrWhiteSpace(educations[0].OriginalText))
+                numberOfEnteredEducations++;
+
+            if (!string.IsNullOrWhiteSpace(educations[2].OriginalText))
+                numberOfEnteredEducations++;
+
+            if (!string.IsNullOrWhiteSpace(educations[4].OriginalText))
+                numberOfEnteredEducations++;
+
+
+            // Cicle for updating all users that exists.
+            // Firing while number of entered parents in textbox is not end or
+            // while number existing parents in database is not end
+            for (int i = existingEducations.Length, j = 0; numberOfEnteredEducations != 0 && i != 0; currentEducationsInfromationId += 2, i--, numberOfEnteredEducations--, j++)
+            {
+                UpdateEducation(existingEducations[j].Id, educations, currentEducationsInfromationId);
+            }
+
+            // Create line in db for each parent , that isn't existit in db
+            for (; numberOfEnteredEducations != 0 && !string.IsNullOrWhiteSpace(educations[currentEducationsInfromationId].OriginalText); currentEducationsInfromationId += 2, numberOfEnteredEducations--)
+            {
+                CreateEducation(id, educations, currentEducationsInfromationId);
+            }
+        }
+
+        /// <summary>
+        /// The method that controls that parents is not exiist in db and creates them,
+        /// and if parent is exists just updates them
+        /// </summary>
+        /// <param name="id">current student id</param>
+        /// <param name="parents">All <see cref="TextEntryViewModel"/> that hold information about all <see cref="Parent"/></param>
+        private static void CreateUpdateParents(int id, List<TextEntryViewModel> parents)
+        {
+            // Contains the number of entered in entry box parents
+            int numberOfEnteredParents = 0;
+
+            // Current parent information id to start from in list
+            int currentParentsInfoId = 0;
+
+            // Takes the existing parents in DB with specific id
+            Parent[] existingParents = TakeParents().Where(x => x.StudentId == id).ToArray();
+
+            // Check if the value in entry box have entered 
+            // if true insrease numberOfEntereParents
+            if (!string.IsNullOrWhiteSpace(parents[0].OriginalText))
+                numberOfEnteredParents++;
+
+            if (!string.IsNullOrWhiteSpace(parents[4].OriginalText))
+                numberOfEnteredParents++;
+
+
+            // Cicle for updating all users that exists.
+            // Firing while number of entered parents in textbox is not end or
+            // while number existing parents in database is not end
+            for (int i = existingParents.Length, j = 0; numberOfEnteredParents != 0 && i != 0; currentParentsInfoId += 4, i--, numberOfEnteredParents--, j++)
+            {
+                UpdateParent(parents, currentParentsInfoId, existingParents[j].Id);
+            }
+
+            // Create line in db for each parent , that isn't existit in db
+            for (; numberOfEnteredParents != 0 && !string.IsNullOrWhiteSpace(parents[currentParentsInfoId].OriginalText); currentParentsInfoId += 4, numberOfEnteredParents--)
+            {
+                CreateParent(id, parents, currentParentsInfoId);
+            }
+        }
+
+        /// <summary>
+        /// Method that creates parent in database
+        /// </summary>
+        /// <param name="id">Current students id</param>
+        /// <param name="parentsInfo"><see cref="List{TextEntryViewModel}"/> that takes all <see cref="TextEntryViewModel"/> that hold infromation about parent</param>
+        /// <param name="currentInfoId">The start index for parentsInfo to show from whic place method should start taking information about current parent</param>
+        private static void CreateParent(int id, List<TextEntryViewModel> parentsInfo, int currentInfoId)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format(
+                        "INSERT INTO [dbo].[Parent] (StudentID,LastName, FirstName, MiddleName, Phone) " +
+                        "VALUES ('{0}','{1}','{2}','{3}',{4})", id, parentsInfo[currentInfoId].OriginalText,
+                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText, long.Parse(parentsInfo[currentInfoId + 3].OriginalText));
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        /// <summary>
+        /// Method that updates parents information in database
+        /// </summary>
+        /// <param name="parentsInfo"><see cref="List{TextEntryViewModel}"/> that takes all <see cref="TextEntryViewModel"/> that hold infromation about parent</param>
+        /// <param name="currentInfoId">The start index for parentsInfo to show from whic place method should start taking information about current parent</param>
+        /// <param name="id">Current parents id</param>
+        private static void UpdateParent(List<TextEntryViewModel> parentsInfo, int currentInfoId, int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("UPDATE [dbo].[Parent] " +
+                                                 "SET LastName = '{0}', FirstName = '{1}', MiddleName = '{2}', Phone = {3} " +
+                                                 "WHERE Id = {4}", parentsInfo[currentInfoId].OriginalText,
+                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText, long.Parse(parentsInfo[currentInfoId + 3].OriginalText), id);
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        /// <summary>
+        /// Updates the values in DocumentsOnEducation table
+        /// </summary>
+        /// <param name="id">The id of current education to updated</param>
+        /// <param name="educations">The list of values</param>
+        /// <param name="i">The score that indicated what values we need to use in update</param>
+        /// <returns></returns>
+        private static void UpdateEducation(int id, List<TextEntryViewModel> educations, int i)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("UPDATE [dbo].[DocumentsOnEducation] " +
+                                                 "SET [File] = '{0}', DateOfEnd = '{1}' " +
+                                                 "WHERE Id = {2}", educations[i].OriginalText, DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"), id);
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        /// <summary>
+        /// Creates the values in DocumentsOnEducation table
+        /// </summary>
+        /// <param name="id">The id of current education to updated</param>
+        /// <param name="educations">The list of values</param>
+        /// <param name="i">The score that indicated what values we need to use in update</param>
+        private static void CreateEducation(int id, List<TextEntryViewModel> educations, int i)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = string.Format(
+                        "INSERT INTO [dbo].[DocumentsOnEducation] (StudentID, [File], DateOfEnd) " +
+                        "VALUES ({0}, '{1}', '{2}')", id, educations[i].OriginalText,
+                        DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"));
+
+                    using (SqlCommand command = new SqlCommand(query))
+                    {
+                        connection.Open();
+
+                        command.Connection = connection;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        #endregion
 
     }
 }
