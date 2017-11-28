@@ -10,7 +10,7 @@
     
     <Grid DataContext="{x:Static core:StudentListDesignModel.Instance}" Background="{StaticResource ForegroundLightBrush}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Items , UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+            <ItemsControl ItemsSource="{Binding FilteredItems , UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:StudentsListItemControl />

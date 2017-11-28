@@ -35,9 +35,18 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Column="0"
-                                 Tag="Search ..."
+                                 Tag="Search student..."
+                                 Text="{Binding StudentListDesignModel.SearchText, 
+                                                UpdateSourceTrigger=PropertyChanged , 
+                                                Source={x:Static local:ViewModelLocator.Instance}}"
                                  FontSize="{StaticResource FontSizeXLarge}"
-                                 />
+                                 >
+                            <TextBox.InputBindings>
+                                <!-- Search on enter -->
+                                <KeyBinding Command="{Binding StudentListDesignModel.SearchCommand ,
+                                                              Source={x:Static local:ViewModelLocator.Instance}}" Key="Return"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
 
                         <!-- Add button -->
                         <Button Style="{StaticResource IconGrowButton}"

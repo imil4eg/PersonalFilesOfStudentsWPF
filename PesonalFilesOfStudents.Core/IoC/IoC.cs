@@ -25,6 +25,11 @@ namespace PesonalFilesOfStudents.Core
         /// </summary>
         public static AddStudentViewModel AddStudent => IoC.Get<AddStudentViewModel>();
 
+        /// <summary>
+        /// A shortcut to acces the <see cref="StudentListDesignModel"/>
+        /// </summary>
+        public static StudentListDesignModel StudentListDesignModel => IoC.Get<StudentListDesignModel>();
+
         #endregion
 
         #region Contruction
@@ -50,6 +55,8 @@ namespace PesonalFilesOfStudents.Core
 
             // Bind to a single instance of AddStudent view model
             Kernel.Bind<AddStudentViewModel>().ToConstant(new AddStudentViewModel());
+
+            Kernel.Bind<StudentListDesignModel>().ToConstant(StudentListDesignModel.Instance);
         }
 
         #endregion

@@ -29,6 +29,11 @@ namespace PesonalFilesOfStudents
         /// </summary>
         public static AddStudentViewModel AddStudentViewModel => IoC.AddStudent;
 
+        /// <summary>
+        /// The Student List model
+        /// </summary>
+        public static StudentListDesignModel StudentListDesignModel => IoC.StudentListDesignModel;
+
         #endregion
     }
 }
