@@ -42,6 +42,12 @@ namespace PesonalFilesOfStudents.Core
         /// </summary>
         public bool PictureControlVisible { get; set; }
 
+
+        /// <summary>
+        /// True if block screen should be shown
+        /// </summary>
+        public bool BlockScreenVisible { get; set; }
+
         #endregion
 
         #region Consturctor

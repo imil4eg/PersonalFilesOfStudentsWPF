@@ -216,6 +216,7 @@ namespace PesonalFilesOfStudents.Core
 
         public void OpenInformation()
         {
+            IoC.Application.BlockScreenVisible = false;
 
             StudentsInformationViewModel.StudentInformation = new Student()
             {

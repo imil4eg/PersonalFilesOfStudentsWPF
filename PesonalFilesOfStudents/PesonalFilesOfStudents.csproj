@@ -135,6 +135,9 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StudentInformationWhiteScreenControl.xaml.cs">
+      <DependentUpon>StudentInformationWhiteScreenControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Students\StudentsInformation\StudentInformationControl.xaml.cs">
       <DependentUpon>StudentInformationControl.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SideMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StudentInformationWhiteScreenControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

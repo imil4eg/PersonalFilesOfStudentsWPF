@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
+using Microsoft.SqlServer.Server;
 
 namespace PesonalFilesOfStudents.Core
 {
@@ -368,7 +369,6 @@ namespace PesonalFilesOfStudents.Core
 
         #endregion
 
-
         #region Private Methods
 
         /// <summary>
@@ -386,24 +386,23 @@ namespace PesonalFilesOfStudents.Core
             int currentEducationsInfromationId = 0;
 
             // Takes the existing parents in DB with specific id
-            Education[] existingEducations = TakeEducations().Where(x => x.StudentID == id).ToArray();
+            List<Education> existingEducations = TakeEducations().Where(x => x.StudentID == id).ToList();
 
-            // Check if the value in entry box have entered 
+            // Check if the value in entry box have entered and
+            // his value is different from old value in db
             // if true insrease numberOfEntereParents
-            if (!string.IsNullOrWhiteSpace(educations[0].OriginalText))
-                numberOfEnteredEducations++;
-
-            if (!string.IsNullOrWhiteSpace(educations[2].OriginalText))
-                numberOfEnteredEducations++;
-
-            if (!string.IsNullOrWhiteSpace(educations[4].OriginalText))
-                numberOfEnteredEducations++;
+            for (int i = 0,j = 0; i < 3; i++,j += 2)
+            {
+                if (!string.IsNullOrWhiteSpace(educations[j].OriginalText) ||
+                    (existingEducations.Count > i && existingEducations[i].EducationFile != educations[j].OriginalText))
+                    numberOfEnteredEducations++;
+            }
 
 
             // Cicle for updating all users that exists.
             // Firing while number of entered parents in textbox is not end or
             // while number existing parents in database is not end
-            for (int i = existingEducations.Length, j = 0; numberOfEnteredEducations != 0 && i != 0; currentEducationsInfromationId += 2, i--, numberOfEnteredEducations--, j++)
+            for (int i = existingEducations.Count, j = 0; numberOfEnteredEducations != 0 && i != 0; currentEducationsInfromationId += 2, i--, numberOfEnteredEducations--, j++)
             {
                 UpdateEducation(existingEducations[j].Id, educations, currentEducationsInfromationId);
             }
@@ -412,6 +411,21 @@ namespace PesonalFilesOfStudents.Core
             for (; numberOfEnteredEducations != 0 && !string.IsNullOrWhiteSpace(educations[currentEducationsInfromationId].OriginalText); currentEducationsInfromationId += 2, numberOfEnteredEducations--)
             {
                 CreateEducation(id, educations, currentEducationsInfromationId);
+            }
+
+            // Clear list of parents
+            existingEducations.Clear();
+
+            // Takes the existing parents in DB with specific id
+            existingEducations = TakeEducations().Where(x => x.StudentID == id).ToList();
+
+            // Fore each existing parent with specific id...
+            for (int i = 0; i < existingEducations.Count; i++)
+            {
+                // Check if it's null after update
+                // If true , delete line from data base
+                if (string.IsNullOrWhiteSpace(existingEducations[i].EducationFile))
+                    DeleteEducation(existingEducations[i].Id);
             }
         }
 
@@ -430,21 +444,28 @@ namespace PesonalFilesOfStudents.Core
             int currentParentsInfoId = 0;
 
             // Takes the existing parents in DB with specific id
-            Parent[] existingParents = TakeParents().Where(x => x.StudentId == id).ToArray();
+            List<Parent> existingParents = TakeParents().Where(x => x.StudentId == id).ToList();
 
             // Check if the value in entry box have entered 
             // if true insrease numberOfEntereParents
-            if (!string.IsNullOrWhiteSpace(parents[0].OriginalText))
-                numberOfEnteredParents++;
+            //if (!string.IsNullOrWhiteSpace(parents[0].OriginalText))
+            //    numberOfEnteredParents++;
 
-            if (!string.IsNullOrWhiteSpace(parents[4].OriginalText))
-                numberOfEnteredParents++;
+            //if (!string.IsNullOrWhiteSpace(parents[4].OriginalText))
+            //    numberOfEnteredParents++;
+
+            for (int i = 0, j = 0; i < 2; i++,j += 4)
+            {
+                if (!string.IsNullOrWhiteSpace(parents[j].OriginalText) ||
+                    (existingParents.Count > i && existingParents[i].ParentLastName != parents[j].OriginalText))
+                    numberOfEnteredParents++;
+            }
 
 
             // Cicle for updating all users that exists.
             // Firing while number of entered parents in textbox is not end or
             // while number existing parents in database is not end
-            for (int i = existingParents.Length, j = 0; numberOfEnteredParents != 0 && i != 0; currentParentsInfoId += 4, i--, numberOfEnteredParents--, j++)
+            for (int i = existingParents.Count, j = 0; numberOfEnteredParents != 0 && i != 0; currentParentsInfoId += 4, i--, numberOfEnteredParents--, j++)
             {
                 UpdateParent(parents, currentParentsInfoId, existingParents[j].Id);
             }
@@ -454,6 +475,22 @@ namespace PesonalFilesOfStudents.Core
             {
                 CreateParent(id, parents, currentParentsInfoId);
             }
+
+            // Clear list of parents
+            existingParents.Clear();
+
+            // Takes the existing parents in DB with specific id
+            existingParents = TakeParents().Where(x => x.StudentId == id).ToList();
+
+            // Fore each existing parent with specific id...
+            for (int i = 0; i < existingParents.Count; i++)
+            {
+                // Check if it's null after update
+                // If true , delete line from data base
+                if (string.IsNullOrWhiteSpace(existingParents[i].ParentLastName))
+                   DeleteParent(existingParents[i].Id);
+            }
+
         }
 
         /// <summary>
@@ -504,7 +541,10 @@ namespace PesonalFilesOfStudents.Core
                     string query = string.Format("UPDATE [dbo].[Parent] " +
                                                  "SET LastName = '{0}', FirstName = '{1}', MiddleName = '{2}', Phone = {3} " +
                                                  "WHERE Id = {4}", parentsInfo[currentInfoId].OriginalText,
-                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText, long.Parse(parentsInfo[currentInfoId + 3].OriginalText), id);
+                        parentsInfo[currentInfoId + 1].OriginalText, parentsInfo[currentInfoId + 2].OriginalText,
+                        long.Parse(string.IsNullOrEmpty(parentsInfo[currentInfoId + 3].OriginalText)
+                            ? "0"
+                            : parentsInfo[currentInfoId + 3].OriginalText), id);
 
                     using (SqlCommand command = new SqlCommand(query))
                     {
@@ -537,7 +577,11 @@ namespace PesonalFilesOfStudents.Core
                 {
                     string query = string.Format("UPDATE [dbo].[DocumentsOnEducation] " +
                                                  "SET [File] = '{0}', DateOfEnd = '{1}' " +
-                                                 "WHERE Id = {2}", educations[i].OriginalText, DateTime.Parse(educations[i + 1].OriginalText).ToString("yyyy/M/dd"), id);
+                                                 "WHERE Id = {2}", educations[i].OriginalText,
+                        DateTime.Parse(educations[i + 1].OriginalText =
+                            string.IsNullOrWhiteSpace(educations[i + 1].OriginalText)
+                                ? DateTime.Today.ToString()
+                                : educations[i + 1].OriginalText).ToString("yyyy/M/dd"), id);
 
                     using (SqlCommand command = new SqlCommand(query))
                     {

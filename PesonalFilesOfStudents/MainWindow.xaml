@@ -118,13 +118,21 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
+            
+            <!-- Picture for AddStudentPage -->
             <local:PictureControl Grid.Column="1"  
                                   Panel.ZIndex="9"
                                   local:AnimateFadeInProperty.Value="{Binding ApplicationViewModel.PictureControlVisible,
                                                                       Source={x:Static local:ViewModelLocator.Instance}}"
                                   
             />
+            
+            <!-- Block screen for StudentInfromationPage -->
+            <local:StudentInformationWhiteScreenControl Grid.Column="1"
+                                                        Panel.ZIndex="9"
+                                                        local:AnimateFadeInProperty.Value="{Binding ApplicationViewModel.BlockScreenVisible,
+                                                                                            Source={x:Static local:ViewModelLocator.Instance}}"
+                />
 
             <!-- Add student menu -->
             <local:AddStudentControl Grid.ColumnSpan="1"

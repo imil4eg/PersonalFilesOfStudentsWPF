@@ -155,7 +155,9 @@ namespace PesonalFilesOfStudents.Core
             //// Find all items that contains the given text
             FilteredItems =
                 new ObservableCollection<StudentsListItemViewModel>(dItems.Where(item =>
-                    item.StudentLastName.ToLower().Contains(SearchText)));
+                    item.StudentLastName.ToLower().Contains(SearchText) ||
+                    item.StudentID.ToString().Contains(SearchText) ||
+                    item.StudentGroup.ToString().Contains(SearchText)));
 
             // Set last search text
             mLastSearchText = SearchText;
