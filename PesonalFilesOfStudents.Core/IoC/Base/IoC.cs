@@ -16,6 +16,11 @@ namespace PesonalFilesOfStudents.Core
         public static IKernel Kernel { get; private set; } = new StandardKernel();
 
         /// <summary>
+        /// A short cut to access the <see cref="IUIManager"/>
+        /// </summary>
+        public static IUIManager UI => IoC.Get<IUIManager>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
         public static ApplicationViewModel Application => IoC.Get<ApplicationViewModel>();

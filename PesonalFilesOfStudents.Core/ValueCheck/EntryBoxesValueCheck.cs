@@ -63,7 +63,12 @@ namespace PesonalFilesOfStudents.Core
             {
                 // Checks if some textbox is empty and show the message and end this method
                 if (!string.IsNullOrWhiteSpace(item.OriginalText)) continue;
-                MessageBox.Show(string.Format("The box {0} can't be empty", item.Label), "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error",
+                    Message = string.Format("The box {0} can't be empty", item.Label),
+                    OkText = "OK"
+                });
                 return false;
 
 
@@ -100,8 +105,12 @@ namespace PesonalFilesOfStudents.Core
                         // if it have a letter , Show messagebox with error and end method
                         if (char.IsNumber(c))
                         {
-                            MessageBox.Show(string.Format("The enter box {0} must contain only letters", item.Label),
-                                "Error");
+                            IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                            {
+                                Title = "Error",
+                                Message = string.Format("The enter box {0} must contain only letters", item.Label),
+                                OkText = "OK"
+                            });
                             return false;
                         }
                     }
@@ -139,7 +148,12 @@ namespace PesonalFilesOfStudents.Core
                 // trying parse value to int , if true show message box with error and end this method
                 if (!int.TryParse(item.OriginalText, out check))
                 {
-                    MessageBox.Show(string.Format("The enter box {0} must contain only nums", item.Label), "Error");
+                    IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                    {
+                        Title = "Error",
+                        Message = string.Format("The enter box {0} must contain only nums", item.Label),
+                        OkText = "OK"
+                    });
                     return false;
                 }
             }
@@ -166,7 +180,12 @@ namespace PesonalFilesOfStudents.Core
                 // trying parse value to DateTime , if true show message box with error and end this method
                 if (!DateTime.TryParse(item.OriginalText, out checkTime))
                 {
-                    MessageBox.Show(string.Format("The date in {0} must be like dd-mm-yyyy", item.Label), "Error");
+                    IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                    {
+                        Title = "Error",
+                        Message = string.Format("The date in {0} must be like dd-mm-yyyy", item.Label),
+                        OkText = "OK"
+                    });
                     return false;
                 }
             }

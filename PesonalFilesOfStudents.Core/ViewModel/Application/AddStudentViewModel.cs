@@ -355,20 +355,26 @@ namespace PesonalFilesOfStudents.Core
                     InsurencePolicyNumber.OriginalText, InsurencePolicyCompany.OriginalText,_parents,_educations, StudentGender.OriginalText,
                     StudentRegistration.OriginalText, StudentBirthDate.OriginalText, StudentMiddleName.OriginalText))
                 {
-                    MessageBox.Show("The student successfully added to data base", "Congratulation");
+                    IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                    {
+                        Title = "Congratulation!",
+                        Message = "The student successfully added to data base!",
+                        OkText = "OK"
+                    });
                     IoC.Application.AddStudentMenuVisible = false;
                     IoC.Application.PictureControlVisible = false;
                     StudentListDesignModel.Instance.Items = SqlDbConnect.CreateStudentsListViewModel();
                     IoC.Application.SideMenuVisible = true;
                 }
-                //else
-                //{
-                //    MessageBox.Show("The student hand't added to data base", "Error");
-                //}
             }
             else
             {
-                MessageBox.Show("The student hand't added to data base", "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = "The student hand't added to data base!",
+                    OkText = "OK"
+                });
             }
         }
     }

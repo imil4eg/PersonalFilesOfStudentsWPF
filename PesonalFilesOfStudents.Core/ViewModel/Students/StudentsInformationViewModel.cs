@@ -441,7 +441,12 @@ namespace PesonalFilesOfStudents.Core
                 });
 
                 // Shows message that update was success
-                MessageBox.Show("Student information was successfully updated","Yea!");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Congratulation!",
+                    Message = "Student information was successfully updated!",
+                    OkText = "OK"
+                });
 
                 // Gets all new items from data base
                 StudentListDesignModel.Instance.Items = SqlDbConnect.CreateStudentsListViewModel();
@@ -449,7 +454,12 @@ namespace PesonalFilesOfStudents.Core
             else
             {
                 // Shows message that update failed
-                MessageBox.Show("Information didn't updated", "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = "Information didn't updated!",
+                    OkText = "OK"
+                });
             }
         }
 
@@ -462,7 +472,12 @@ namespace PesonalFilesOfStudents.Core
             if (SqlDbConnect.DeleteInformation(int.Parse(StudentID.OriginalText)))
             {
                 // Shows message that update was success
-                MessageBox.Show("Student was successfully deleted", "Great Job!");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Congratulation!",
+                    Message = "Student was successfully deleted!",
+                    OkText = "OK"
+                });
 
                 // Gets all new items from data base
                 StudentListDesignModel.Instance.Items = SqlDbConnect.CreateStudentsListViewModel();

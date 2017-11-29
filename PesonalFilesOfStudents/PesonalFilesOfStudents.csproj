@@ -150,6 +150,14 @@
     <Compile Include="Controls\Students\StudentsList\StudentsListItemControl.xaml.cs">
       <DependentUpon>StudentsListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\BaseDialogUserControl.cs" />
+    <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
+      <DependentUpon>DialogMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IoC\UIManager.cs" />
+    <Compile Include="DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\StudentsInformationPage.xaml.cs">
       <DependentUpon>StudentsInformationPage.xaml</DependentUpon>
@@ -157,7 +165,6 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextConverter\TextVerticalConverter.cs" />
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\IconTypeToFontAwesomeConverter.cs" />
     <Compile Include="ValueConverters\MenuItemTypeToVisibilityConverter.cs" />
@@ -168,6 +175,7 @@
     <Compile Include="ValueConverters\PopupContentConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisiblityConverter.cs" />
+    <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Window\WindowResizer.cs" />
@@ -218,6 +226,14 @@
     <Page Include="Controls\Students\StudentsList\StudentsListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DialogMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -75,7 +75,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
 
             return students;
@@ -120,7 +125,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
 
             return parents;
@@ -163,7 +173,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
 
             return educations;
@@ -210,7 +225,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
 
                 return false;
             }
@@ -269,7 +289,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
                 return false;
             }
 
@@ -358,7 +383,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
 
                 return false;
             }
@@ -447,13 +477,8 @@ namespace PesonalFilesOfStudents.Core
             List<Parent> existingParents = TakeParents().Where(x => x.StudentId == id).ToList();
 
             // Check if the value in entry box have entered 
+            // his value is different from old value in db
             // if true insrease numberOfEntereParents
-            //if (!string.IsNullOrWhiteSpace(parents[0].OriginalText))
-            //    numberOfEnteredParents++;
-
-            //if (!string.IsNullOrWhiteSpace(parents[4].OriginalText))
-            //    numberOfEnteredParents++;
-
             for (int i = 0, j = 0; i < 2; i++,j += 4)
             {
                 if (!string.IsNullOrWhiteSpace(parents[j].OriginalText) ||
@@ -482,7 +507,7 @@ namespace PesonalFilesOfStudents.Core
             // Takes the existing parents in DB with specific id
             existingParents = TakeParents().Where(x => x.StudentId == id).ToList();
 
-            // Fore each existing parent with specific id...
+            // For each existing parent with specific id...
             for (int i = 0; i < existingParents.Count; i++)
             {
                 // Check if it's null after update
@@ -522,7 +547,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
@@ -558,7 +588,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
@@ -595,7 +630,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
@@ -628,7 +668,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
@@ -656,7 +701,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
@@ -684,7 +734,12 @@ namespace PesonalFilesOfStudents.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Error!",
+                    Message = ex.Message,
+                    OkText = "OK"
+                });
             }
         }
 
